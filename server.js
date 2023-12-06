@@ -1,4 +1,6 @@
 // server.js
+const TEST_MODE = true;
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -9,9 +11,10 @@ const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 
-// Connect to MongoDB (replace 'your-mongodb-uri' with your actual MongoDB URI)
-mongoose.connect('mongodb://localhost:27017/your-database-name', { useNewUrlParser: true, useUnifiedTopology: true });
-
+if (!TEST_MODE) {
+    // Connect to MongoDB (replace 'your-mongodb-uri' with your actual MongoDB URI)
+    mongoose.connect('mongodb://localhost:27017/your-database-name', { useNewUrlParser: true, useUnifiedTopology: true });
+}
 const courseSchema = new mongoose.Schema({
     abbreviation: String,
     name: String,
