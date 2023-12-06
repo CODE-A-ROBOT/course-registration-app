@@ -100,7 +100,7 @@
 // Updated fetchAndPopulateSelect function
 async function fetchAndPopulateSelect(selectId, data) {
   const select = document.getElementById(selectId);
-  select.innerHTML = '<option value="">Select...</option>';
+  select.innerHTML = '<option value="" selected disabled>Select...</option>';
 
   const uniqueValues = [...new Set(data.map(item => item[selectId]))];
   uniqueValues.forEach(value => {
@@ -111,6 +111,8 @@ async function fetchAndPopulateSelect(selectId, data) {
     select.appendChild(option);
   });
 }
+
+
 
 // Updated fetchCourses function
 async function fetchCourses() {
