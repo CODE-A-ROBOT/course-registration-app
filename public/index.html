@@ -1,0 +1,121 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course Registration 2</title>
+</head>
+<body>
+  <h1>Course Registration 2</h1>
+
+  <form id="courseForm">
+    <h2>Prüfungsfächer</h2>
+    
+    <h3>Leistungskursfächer</h3>
+    <div class="course-selection">
+      <label for="courseSelectL1">Leistungskursfach 1:</label>
+      <select id="courseSelectL1" name="courseSelectL1" required></select>
+    </div>
+
+    <div class="course-selection">
+      <label for="courseSelectL2">Leistungskursfach 2:</label>
+      <select id="courseSelectL2" name="courseSelectL2" required></select>
+    </div>
+
+    <h3>Prüfungsfächer</h3>
+    <div class="course-selection">
+      <label for="courseSelectL3">Prüfungsfach 3:</label>
+      <select id="courseSelectL3" name="courseSelectL3" required></select>
+    </div>
+
+    <div class="course-selection">
+      <label for="courseSelectL4">Prüfungsfach 4:</label>
+      <select id="courseSelectL4" name="courseSelectL4" required></select>
+    </div>
+    
+
+    <h3>5. PK</h3>
+    <div class="course-selection">
+      <label for="courseSelectL5">Referenzfach:</label>
+      <select id="courseSelectL5" name="courseSelectL5" required></select>
+    </div>
+
+    <h3>weitere Grundkurse mit Belegverpflichtung</h3>
+    <div class="course-selection">
+      <label for="courseSelectL6">De:</label>
+      <select id="courseSelectL6" name="courseSelectL6" required></select>
+    </div>
+
+    <div class="course-selection">
+      <label for="courseSelectL7">FS</label>
+      <select id="courseSelectL7" name="courseSelectL7" required></select>
+    </div>
+
+    <div class="course-selection">
+      <label for="courseSelectL8">Ge:</label>
+      <select id="courseSelectL8" name="courseSelectL8" required></select>
+    </div>
+    
+    <div class="course-selection">
+      <label for="courseSelectL9">PW</label>
+      <select id="courseSelectL9" name="courseSelectL9" required></select>
+    </div>
+
+    <div class="course-selection">
+      <label for="courseSelectL10">Ma</label>
+      <select id="courseSelectL10" name="courseSelectL10" required></select>
+    </div>
+   <!-- NW Ph/ Ch Sp-->
+
+    <br>
+    <button type="button" onclick="submitForm()">Submit</button>
+  </form>
+
+  <script>
+    async function fetchAndPopulateSelect(courseSelectId) {
+      //const response = await fetch('/courses');
+      const response = await fetch('data.json'); // Assuming data.json is in the same directory
+
+      const courses = await response.json();
+      const courseSelect = document.getElementById(courseSelectId);
+
+      courses.forEach(course => {
+        if (courseSelectId === `courseSelectL${course.row}`) {
+
+          const option = document.createElement('option');
+          option.value = course.abbreviation;
+          option.text = course.name;
+          courseSelect.appendChild(option);
+        }
+      });
+    }
+
+    
+    async function fetchCourses() {
+      await fetchAndPopulateSelect('courseSelectL1');
+      await fetchAndPopulateSelect('courseSelectL2');
+      await fetchAndPopulateSelect('courseSelectL3');
+      await fetchAndPopulateSelect('courseSelectL4');
+      await fetchAndPopulateSelect('courseSelectL5');
+    }
+
+    async function submitForm() {
+      const selectedCourseL1 = document.getElementById('courseSelectL1').value;
+      const selectedCourseL2 = document.getElementById('courseSelectL2').value;
+      const selectedCourseL3 = document.getElementById('courseSelectL3').value;
+      const selectedCourseL4 = document.getElementById('courseSelectL4').value;
+      const selectedCourseL5 = document.getElementById('courseSelectL5').value;
+      // Add your logic to handle the selected courses (e.g., send them to the server)
+      console.log(`Selected Course L1: ${selectedCourseL1}`);
+      console.log(`Selected Course L2: ${selectedCourseL2}`);
+      console.log(`Selected Course L3: ${selectedCourseL3}`);
+      console.log(`Selected Course L4: ${selectedCourseL4}`);
+      console.log(`Selected Course L5: ${selectedCourseL5}`);
+    }
+
+    // Fetch courses when the page loads
+    document.addEventListener('DOMContentLoaded', fetchCourses);
+  </script>
+</body>
+</html>
