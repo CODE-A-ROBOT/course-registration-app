@@ -12,67 +12,73 @@
   <form id="courseForm">
     <h2>Prüfungsfächer</h2>
 
-    <div class="course-selection">
-      <label for="schoolSelect">School:</label>
-      <select id="schoolSelect" name="schoolSelect" onchange="filterOptions('schoolSelect', 'column1Select')"></select>
-    </div>
+    <h1>Course Registration 2</h1>
 
-    <div class="course-selection">
-      <label for="column1Select">Column 1:</label>
-      <select id="column1Select" name="column1Select" onchange="filterOptions('column1Select', 'column2Select')"></select>
-    </div>
+    <form id="courseForm">
+      <h2>Prüfungsfächer</h2>
 
-    <div class="course-selection">
-      <label for="column2Select">Column 2:</label>
-      <select id="column2Select" name="column2Select" onchange="filterOptions('column2Select', 'column3Select')"></select>
-    </div>
+      <h3>Schule</h3>
 
-    <div class="course-selection">
-      <label for="column3Select">Column 3:</label>
-      <select id="column3Select" name="column3Select" onchange="filterOptions('column3Select', 'column4Select')"></select>
-    </div>
+      <div class="course-selection">
+        <label for="schoolSelect">Schule:</label>
+        <select id="schoolSelect" name="schoolSelect" onchange="filterOptions('schoolSelect', 'column1Select')"></select>
+      </div>
 
-    <!-- Column 4 -->
-    <div class="course-selection">
-      <label for="column4Select">Column 4:</label>
-      <select id="column4Select" name="column4Select" onchange="filterOptions('column4Select', 'column5Select')"></select>
-    </div>
+      <h3>Leistungskursfächer</h3>
+      <div class="course-selection">
+        <label for="column1Select">Leistungskursfach 1:</label>
+        <select id="column1Select" name="column1Select" onchange="filterOptions('column1Select', 'column2Select')"></select>
+      </div>
+  
+      <div class="course-selection">
+        <label for="courseSelectL2">Leistungskursfach 2:</label>
+        <select id="column2Select" name="column2Select" onchange="filterOptions('column2Select', 'column3Select')"></select>
+      </div>
+  
+      <h3>Prüfungsfächer</h3>
+      <div class="course-selection">
+        <label for="courseSelectL3">Prüfungsfach 3:</label>
+        <select id="column3Select" name="column3Select" onchange="filterOptions('column3Select', 'column4Select')"></select>
+      </div>
+  
+      <div class="course-selection">
+        <label for="courseSelectL4">Prüfungsfach 4:</label>
+        <select id="column4Select" name="column4Select" onchange="filterOptions('column4Select', 'column5Select')"></select>
+      </div>
+      
+  
+      <h3>5. PK</h3>
+      <div class="course-selection">
+        <label for="courseSelectL5">Referenzfach:</label>
+        <select id="column5Select" name="column5Select" onchange="filterOptions('column5Select', 'column6Select')"></select>
+      </div>
+  
+      <h3>weitere Grundkurse mit Belegverpflichtung</h3>
+      <div class="course-selection">
+        <label for="courseSelectL6">De:</label>
+        <select id="column6Select" name="column6Select" onchange="filterOptions('column6Select', 'column7Select')"></select>
+      </div>
+  
+      <div class="course-selection">
+        <label for="courseSelectL7">FS</label>
+        <select id="column7Select" name="column7Select" onchange="filterOptions('column7Select', 'column8Select')"></select>
+      </div>
+  
+      <div class="course-selection">
+        <label for="courseSelectL8">Ge:</label>
+        <select id="column8Select" name="column8Select" onchange="filterOptions('column8Select', 'column9Select')"></select>
+      </div>
+      
+      <div class="course-selection">
+        <label for="courseSelectL9">PW</label>
+        <select id="column9Select" name="column9Select" onchange="filterOptions('column9Select', 'column10Select')"></select>
+      </div>
+  
+      <div class="course-selection">
+        <label for="courseSelectL10">Ma</label>
+        <select id="column10Select" name="column10Select"></select>
+      </div>
 
-    <!-- Column 5 -->
-    <div class="course-selection">
-      <label for="column5Select">Column 5:</label>
-      <select id="column5Select" name="column5Select" onchange="filterOptions('column5Select', 'column6Select')"></select>
-    </div>
-
-    <!-- Column 6 -->
-    <div class="course-selection">
-      <label for="column6Select">Column 6:</label>
-      <select id="column6Select" name="column6Select" onchange="filterOptions('column6Select', 'column7Select')"></select>
-    </div>
-
-    <!-- Column 7 -->
-    <div class="course-selection">
-      <label for="column7Select">Column 7:</label>
-      <select id="column7Select" name="column7Select" onchange="filterOptions('column7Select', 'column8Select')"></select>
-    </div>
-
-    <!-- Column 8 -->
-    <div class="course-selection">
-      <label for="column8Select">Column 8:</label>
-      <select id="column8Select" name="column8Select" onchange="filterOptions('column8Select', 'column9Select')"></select>
-    </div>
-
-    <!-- Column 9 -->
-    <div class="course-selection">
-      <label for="column9Select">Column 9:</label>
-      <select id="column9Select" name="column9Select" onchange="filterOptions('column9Select', 'column10Select')"></select>
-    </div>
-
-    <!-- Column 10 -->
-    <div class="course-selection">
-      <label for="column10Select">Column 10:</label>
-      <select id="column10Select" name="column10Select"></select>
-    </div>
 
     <br>
     <button type="button" onclick="submitForm()">Submit</button>
