@@ -100,7 +100,7 @@
 // Updated fetchAndPopulateSelect function
 async function fetchAndPopulateSelect(selectId, data) {
   const select = document.getElementById(selectId);
-  select.innerHTML = '<option value="" selected disabled>Select...</option>';
+  select.innerHTML = '<option value="">Select...</option>';
 
   const uniqueValues = [...new Set(data.map(item => item[selectId]))];
   uniqueValues.forEach(value => {

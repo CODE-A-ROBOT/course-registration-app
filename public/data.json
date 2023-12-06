@@ -28,9 +28,24 @@
     "column9Select": "(2)",
     "column10Select": "4"
   },
-
+  
   {
     "row": "3",
+    "schoolSelect": "School1",
+    "column1Select": "Naturwissenschaft",
+    "column2Select": "Deutsch",
+    "column3Select": "Fremdsprache",
+    "column4Select": "Aufgabenfeld II(Politikwissenschaft, Geschichte, Geografie, Sozialwissenschaften, Psychologie, Philosophie, Wirtschaftswissenschaft)",
+    "column5Select": "*(Fremdsprache,Deutsch,Mathematik, Musik / Bildende Kunst, Aufgabenfeld II(Politikwissenschaft, Geschichte, Geografie, Sozialwissenschaften, Psychologie, Philosophie, Wirtschaftswissenschaft)",
+    "column6Select": "-",
+    "column7Select": "2",
+    "column8Select": "-",
+    "column9Select": "(2)",
+    "column10Select": "4"
+  },
+
+  {
+    "row": "4",
     "schoolSelect": "School2",
     "column1Select": "Fremdsprache",
     "column2Select": "Deutsch",
