@@ -1,94 +1,48 @@
 [
-    {
-      "_id": "6570b9768f1ed0dc043a7cae",
-      "abbreviation": "FS",
-      "name": "Fremdsprache",
-      "row": 1,
-      "__v": 0
-    },
-    {
-      "_id": "6570b9ab8f1ed0dc043a7cb0",
-      "abbreviation": "MA",
-      "name": "Mathematik",
-      "row": 1,
-      "__v": 0
-    },
-    {
-      "_id": "6570ba3537ad1a534acc0e51",
-      "abbreviation": "NW",
-      "name": "Naturwissenschaft",
-      "row": 1,
-      "__v": 0
-    },
-    {
-      "_id": "6570ba3837ad1a534acc0e53",
-      "abbreviation": "De",
-      "name": "Deutsch",
-      "row": 2,
-      "__v": 0 
-    },
-    {
-      "_id": "6570ba3837ad1a534acc0e53",
-      "abbreviation": "FS",
-      "name": "Fremdsprache",
-      "row": 2,
-      "__v": 0 
-    },
-    {
-      "_id": "6570ba3837ad1a534acc0e53",
-      "abbreviation": "Mu / Ku",
-      "name": "Musik / Bildende Kunst",
-      "row": 2,
-      "__v": 0 
-    },
-    {
-      "_id": "6570b9ab8f1ed0dc043a7cb0",
-      "abbreviation": "MA",
-      "name": "Mathematik",
-      "row": 2,
-      "__v": 0
-    },
-    {
-      "_id": "6570ba3537ad1a534acc0e51",
-      "abbreviation": "NW",
-      "name": "Naturwissenschaft",
-      "row": 2,
-      "__v": 0
-    },
-    {
-      "_id": "6570b9ab8f1ed0dc043a7cb0",
-      "abbreviation": "AF II",
-      "name": "Aufgabenfeld II",
-      "row": 3,
-      "__v": 0
-    },
-    {
-      "_id": "6570ba3537ad1a534acc0e51",
-      "abbreviation": "NW",
-      "name": "Naturwissenschaft",
-      "row": 4,
-      "__v": 0
-    },
-    {
-      "_id": "6570b9768f1ed0dc043a7cae",
-      "abbreviation": "FS",
-      "name": "Fremdsprache",
-      "row": 5,
-      "__v": 0
-    },
-    {
-      "_id": "6570b9ab8f1ed0dc043a7cb0",
-      "abbreviation": "MA",
-      "name": "Mathematik",
-      "row": 5,
-      "__v": 0
-    },
-    {
-      "_id": "6570ba3537ad1a534acc0e51",
-      "abbreviation": "NW",
-      "name": "Naturwissenschaft",
-      "row": 5,
-      "__v": 0
-    }
-  ]
+  {
+    "row": "1",
+    "schoolSelect": "School1",
+    "column1Select": "Fremdsprache",
+    "column2Select": "Deutsch",
+    "column3Select": "Aufgabenfeld II(Politikwissenschaft, Geschichte, Geografie, Sozialwissenschaften, Psychologie, Philosophie, Wirtschaftswissenschaft)",
+    "column4Select": "Mathematik",
+    "column5Select": "*(Fremdsprache,Deutsch,Mathematik, Musik / Bildende Kunst, Aufgabenfeld II(Politikwissenschaft, Geschichte, Geografie, Sozialwissenschaften, Psychologie, Philosophie, Wirtschaftswissenschaft)",
+    "column6Select": "-",
+    "column7Select": "2",
+    "column8Select": "-",
+    "column9Select": "(2)",
+    "column10Select": "-"
+  },
+
+  {
+    "row": "2",
+    "schoolSelect": "School1",
+    "column1Select": "Fremdsprache",
+    "column2Select": "Deutsch",
+    "column3Select": "Aufgabenfeld II(Politikwissenschaft, Geschichte, Geografie, Sozialwissenschaften, Psychologie, Philosophie, Wirtschaftswissenschaft)",
+    "column4Select": "Naturwissenschaft",
+    "column5Select": "*(Fremdsprache,Deutsch,Mathematik, Musik / Bildende Kunst, Aufgabenfeld II(Politikwissenschaft, Geschichte, Geografie, Sozialwissenschaften, Psychologie, Philosophie, Wirtschaftswissenschaft)",
+    "column6Select": "-",
+    "column7Select": "2",
+    "column8Select": "-",
+    "column9Select": "(2)",
+    "column10Select": "4"
+  },
+
+  {
+    "row": "3",
+    "schoolSelect": "School2",
+    "column1Select": "Fremdsprache",
+    "column2Select": "Deutsch",
+    "column3Select": "Aufgabenfeld II(Politikwissenschaft, Geschichte, Geografie, Sozialwissenschaften, Psychologie, Philosophie, Wirtschaftswissenschaft)",
+    "column4Select": "Naturwissenschaft",
+    "column5Select": "*(Fremdsprache,Deutsch,Mathematik, Musik / Bildende Kunst, Aufgabenfeld II(Politikwissenschaft, Geschichte, Geografie, Sozialwissenschaften, Psychologie, Philosophie, Wirtschaftswissenschaft)",
+    "column6Select": "-",
+    "column7Select": "2",
+    "column8Select": "-",
+    "column9Select": "(2)",
+    "column10Select": "4"
+  }
+
+]
   

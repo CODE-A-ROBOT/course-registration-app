@@ -1,0 +1,33 @@
+[
+  {
+    "row": "1",
+    "school": "1",
+    "column1": "Fremdsprache",
+    "column2": "Deutsch",
+    "column3": "Aufgabenfeld II(Politikwissenschaft, Geschichte, Geografie, Sozialwissenschaften, Psychologie, Philosophie, Wirtschaftswissenschaft)",
+    "column4": "Mathematik",
+    "column5": "*(Fremdsprache,Deutsch,Mathematik, Musik / Bildende Kunst, Aufgabenfeld II(Politikwissenschaft, Geschichte, Geografie, Sozialwissenschaften, Psychologie, Philosophie, Wirtschaftswissenschaft)",
+    "column6": "-",
+    "column7": "2",
+    "column8": "-",
+    "column9": "(2)",
+    "column10": "-"
+  },
+
+  {
+    "row": "2",
+    "school": "1",
+    "column1": "Fremdsprache",
+    "column2": "Deutsch",
+    "column3": "Aufgabenfeld II(Politikwissenschaft, Geschichte, Geografie, Sozialwissenschaften, Psychologie, Philosophie, Wirtschaftswissenschaft)",
+    "column4": "Naturwissenschaft",
+    "column5": "*(Fremdsprache,Deutsch,Mathematik, Musik / Bildende Kunst, Aufgabenfeld II(Politikwissenschaft, Geschichte, Geografie, Sozialwissenschaften, Psychologie, Philosophie, Wirtschaftswissenschaft)",
+    "column6": "-",
+    "column7": "2",
+    "column8": "-",
+    "column9": "(2)",
+    "column10": "4"
+  }
+
+]
+  

@@ -11,111 +11,133 @@
 
   <form id="courseForm">
     <h2>Prüfungsfächer</h2>
-    
-    <h3>Leistungskursfächer</h3>
+
     <div class="course-selection">
-      <label for="courseSelectL1">Leistungskursfach 1:</label>
-      <select id="courseSelectL1" name="courseSelectL1" required></select>
+      <label for="schoolSelect">School:</label>
+      <select id="schoolSelect" name="schoolSelect" onchange="filterOptions('schoolSelect', 'column1Select')"></select>
     </div>
 
     <div class="course-selection">
-      <label for="courseSelectL2">Leistungskursfach 2:</label>
-      <select id="courseSelectL2" name="courseSelectL2" required></select>
-    </div>
-
-    <h3>Prüfungsfächer</h3>
-    <div class="course-selection">
-      <label for="courseSelectL3">Prüfungsfach 3:</label>
-      <select id="courseSelectL3" name="courseSelectL3" required></select>
+      <label for="column1Select">Column 1:</label>
+      <select id="column1Select" name="column1Select" onchange="filterOptions('column1Select', 'column2Select')"></select>
     </div>
 
     <div class="course-selection">
-      <label for="courseSelectL4">Prüfungsfach 4:</label>
-      <select id="courseSelectL4" name="courseSelectL4" required></select>
-    </div>
-    
-
-    <h3>5. PK</h3>
-    <div class="course-selection">
-      <label for="courseSelectL5">Referenzfach:</label>
-      <select id="courseSelectL5" name="courseSelectL5" required></select>
-    </div>
-
-    <h3>weitere Grundkurse mit Belegverpflichtung</h3>
-    <div class="course-selection">
-      <label for="courseSelectL6">De:</label>
-      <select id="courseSelectL6" name="courseSelectL6" required></select>
+      <label for="column2Select">Column 2:</label>
+      <select id="column2Select" name="column2Select" onchange="filterOptions('column2Select', 'column3Select')"></select>
     </div>
 
     <div class="course-selection">
-      <label for="courseSelectL7">FS</label>
-      <select id="courseSelectL7" name="courseSelectL7" required></select>
+      <label for="column3Select">Column 3:</label>
+      <select id="column3Select" name="column3Select" onchange="filterOptions('column3Select', 'column4Select')"></select>
     </div>
 
+    <!-- Column 4 -->
     <div class="course-selection">
-      <label for="courseSelectL8">Ge:</label>
-      <select id="courseSelectL8" name="courseSelectL8" required></select>
-    </div>
-    
-    <div class="course-selection">
-      <label for="courseSelectL9">PW</label>
-      <select id="courseSelectL9" name="courseSelectL9" required></select>
+      <label for="column4Select">Column 4:</label>
+      <select id="column4Select" name="column4Select" onchange="filterOptions('column4Select', 'column5Select')"></select>
     </div>
 
+    <!-- Column 5 -->
     <div class="course-selection">
-      <label for="courseSelectL10">Ma</label>
-      <select id="courseSelectL10" name="courseSelectL10" required></select>
+      <label for="column5Select">Column 5:</label>
+      <select id="column5Select" name="column5Select" onchange="filterOptions('column5Select', 'column6Select')"></select>
     </div>
-   <!-- NW Ph/ Ch Sp-->
+
+    <!-- Column 6 -->
+    <div class="course-selection">
+      <label for="column6Select">Column 6:</label>
+      <select id="column6Select" name="column6Select" onchange="filterOptions('column6Select', 'column7Select')"></select>
+    </div>
+
+    <!-- Column 7 -->
+    <div class="course-selection">
+      <label for="column7Select">Column 7:</label>
+      <select id="column7Select" name="column7Select" onchange="filterOptions('column7Select', 'column8Select')"></select>
+    </div>
+
+    <!-- Column 8 -->
+    <div class="course-selection">
+      <label for="column8Select">Column 8:</label>
+      <select id="column8Select" name="column8Select" onchange="filterOptions('column8Select', 'column9Select')"></select>
+    </div>
+
+    <!-- Column 9 -->
+    <div class="course-selection">
+      <label for="column9Select">Column 9:</label>
+      <select id="column9Select" name="column9Select" onchange="filterOptions('column9Select', 'column10Select')"></select>
+    </div>
+
+    <!-- Column 10 -->
+    <div class="course-selection">
+      <label for="column10Select">Column 10:</label>
+      <select id="column10Select" name="column10Select"></select>
+    </div>
 
     <br>
     <button type="button" onclick="submitForm()">Submit</button>
   </form>
 
   <script>
-    async function fetchAndPopulateSelect(courseSelectId) {
-      //const response = await fetch('/courses');
-      const response = await fetch('data.json'); // Assuming data.json is in the same directory
+    let data; // Declare the data variable
 
-      const courses = await response.json();
-      const courseSelect = document.getElementById(courseSelectId);
 
-      courses.forEach(course => {
-        if (courseSelectId === `courseSelectL${course.row}`) {
 
-          const option = document.createElement('option');
-          option.value = course.abbreviation;
-          option.text = course.name;
-          courseSelect.appendChild(option);
-        }
-      });
+    async function filterOptions(sourceSelectId, targetSelectId) {
+      const sourceSelect = document.getElementById(sourceSelectId);
+      const targetSelect = document.getElementById(targetSelectId);
+
+      // Get the selected value from the source select
+      const selectedValue = sourceSelect.value;
+
+      // Filter the data based on the selected value
+      const filteredData = data.filter(item => item[sourceSelectId] === selectedValue);
+
+      // Repopulate the target select with the filtered data
+      fetchAndPopulateSelect(targetSelectId, filteredData);
     }
 
-    
-    async function fetchCourses() {
-      await fetchAndPopulateSelect('courseSelectL1');
-      await fetchAndPopulateSelect('courseSelectL2');
-      await fetchAndPopulateSelect('courseSelectL3');
-      await fetchAndPopulateSelect('courseSelectL4');
-      await fetchAndPopulateSelect('courseSelectL5');
-    }
+// Updated fetchAndPopulateSelect function
+async function fetchAndPopulateSelect(selectId, data) {
+  const select = document.getElementById(selectId);
+  select.innerHTML = '<option value="">Select...</option>';
 
-    async function submitForm() {
-      const selectedCourseL1 = document.getElementById('courseSelectL1').value;
-      const selectedCourseL2 = document.getElementById('courseSelectL2').value;
-      const selectedCourseL3 = document.getElementById('courseSelectL3').value;
-      const selectedCourseL4 = document.getElementById('courseSelectL4').value;
-      const selectedCourseL5 = document.getElementById('courseSelectL5').value;
-      // Add your logic to handle the selected courses (e.g., send them to the server)
-      console.log(`Selected Course L1: ${selectedCourseL1}`);
-      console.log(`Selected Course L2: ${selectedCourseL2}`);
-      console.log(`Selected Course L3: ${selectedCourseL3}`);
-      console.log(`Selected Course L4: ${selectedCourseL4}`);
-      console.log(`Selected Course L5: ${selectedCourseL5}`);
+  const uniqueValues = [...new Set(data.map(item => item[selectId]))];
+  uniqueValues.forEach(value => {
+    console.log('value: ' + value);
+    const option = document.createElement('option');
+    option.value = value;
+    option.text = value;
+    select.appendChild(option);
+  });
+}
+
+// Updated fetchCourses function
+async function fetchCourses() {
+  try {
+    const response = await fetch('data.json');
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data.json. Status: ${response.status}`);
     }
+    data = await response.json();
+
+    // Fetch and populate the School select
+    fetchAndPopulateSelect('schoolSelect', data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 
     // Fetch courses when the page loads
     document.addEventListener('DOMContentLoaded', fetchCourses);
+
+    // Additional function to submit the form
+    function submitForm() {
+      // Add your logic to handle the selected values (e.g., send them to the server)
+      // Access the selected values using document.getElementById('selectId').value
+      console.log('Form submitted!');
+    }
   </script>
 </body>
 </html>
