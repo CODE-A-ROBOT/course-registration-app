@@ -1,0 +1,78 @@
+[
+  {
+    "row": "1",
+    "schoolSelect": "School1",
+    "column1Select": "Fremdsprache",
+    "column2Select": "Deutsch",
+    "column3Select": "Aufgabenfeld II",
+    "column4Select": "Mathematik",
+    "column5Select": "*",
+    "column6Select": "-",
+    "column7Select": "2",
+    "column8Select": "-",
+    "column9Select": "(2)",
+    "column10Select": "-"
+  },
+
+  {
+    "row": "2",
+    "schoolSelect": "School1",
+    "column1Select": "Fremdsprache",
+    "column2Select": "Deutsch",
+    "column3Select": "Aufgabenfeld II",
+    "column4Select": "Naturwissenschaft",
+    "column5Select": "*",
+    "column6Select": "-",
+    "column7Select": "2",
+    "column8Select": "-",
+    "column9Select": "(2)",
+    "column10Select": "4"
+  },
+  
+  {
+    "row": "4",
+    "schoolSelect": "School1",
+    "column1Select": "Fremdsprache",
+    "column2Select": "Fremdsprache",
+    "column3Select": "Deutsch",
+    "column4Select": "Aufgabenfeld II",
+    "column5Select": "Naturwissenschaft",
+    "column6Select": "-",
+    "column7Select": "2",
+    "column8Select": "-",
+    "column9Select": "(2)",
+    "column10Select": "4"
+  },
+  
+  {
+    "row": "14",
+    "schoolSelect": "School1",
+    "column1Select": "Naturwissenschaft",
+    "column2Select": "Deutsch",
+    "column3Select": "Fremdsprache",
+    "column4Select": "Aufgabenfeld II",
+    "column5Select": "*",
+    "column6Select": "-",
+    "column7Select": "2",
+    "column8Select": "-",
+    "column9Select": "(2)",
+    "column10Select": "4"
+  },
+
+  {
+    "row": "30",
+    "schoolSelect": "School2",
+    "column1Select": "Fremdsprache",
+    "column2Select": "Deutsch",
+    "column3Select": "Aufgabenfeld II",
+    "column4Select": "Naturwissenschaft",
+    "column5Select": "*",
+    "column6Select": "-",
+    "column7Select": "2",
+    "column8Select": "-",
+    "column9Select": "(2)",
+    "column10Select": "4"
+  }
+
+]
+  
