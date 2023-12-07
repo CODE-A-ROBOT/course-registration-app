@@ -100,17 +100,36 @@ async function fetchSubjects() {
   }
 }
 
-// Call fetchSubjects when the page loads
-document.addEventListener('DOMContentLoaded', fetchSubjects);
+// Updated fetchCourses function
+async function fetchCourses() {
+  try {
+    const responseSubjects = await fetch('subjects.json');
+    if (!responseSubjects.ok) {
+      throw new Error(`Failed to fetch subjects.json. Status: ${responseSubjects.status}`);
+    }
+    const subjectsData = await responseSubjects.json();
 
-// ... (existing code)
+    // Create subjectsMap
+    subjectsMap = new Map(subjectsData.map(item => [item.label, item.subjects]));
+
+    const response = await fetch('data.json');
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data.json. Status: ${response.status}`);
+    }
+    data = await response.json();
+
+    // Fetch and populate the School select
+    fetchAndPopulateSelect('schoolSelect', data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+// ...
 
 // Updated fetchAndPopulateSelect function
-// ... (existing code)
-
-// Updated fetchAndPopulateSelect function
-async function fetchAndPopulateSelect(selectId, data) {
+function fetchAndPopulateSelect(selectId, data) {
   const select = document.getElementById(selectId);
+
   // Clear existing options
   select.innerHTML = '';
 
@@ -128,37 +147,45 @@ async function fetchAndPopulateSelect(selectId, data) {
     option.value = value;
     option.text = value;
     select.appendChild(option);
-    console.log(`Option value: ${value}`);
 
-    // Check if the selected value corresponds to a label in subjects.json
-    if (subjectsMap && subjectsMap.has(value)) {
-      // Log the value to check if this block is being executed
-      console.log(`Creating subject dropdown for ${value}`);
-      // Create a new dropdown for subjects
-      createSubjectDropdown(subjectsMap.get(value), selectId);
+    // If the value is a label in subjects.json, create and append a new subjects dropdown
+    if (subjectsMap.has(value)) {
+      const subjectsDropdown = createSubjectsDropdown(value, subjectsMap.get(value));
+      select.parentNode.appendChild(subjectsDropdown);
+
+      // Set up an event listener to hide the subjects dropdown when a different value is selected
+      select.addEventListener('change', () => {
+        subjectsDropdown.style.display = select.value === value ? 'inline-block' : 'none';
+        console.log('Selected Value:', select.value);
+      });
     }
   });
 }
 
-// ... (existing code)
+// ...
 
-// New function to create a dropdown for subjects
-function createSubjectDropdown(subjectsList, selectId) {
-  const parentDiv = document.getElementById('courseForm'); // Use the appropriate parent element
+// Function to create subjects dropdown
+function createSubjectsDropdown(value, subjects) {
+  const subjectsDropdown = document.createElement('select');
+  subjectsDropdown.classList.add('subjects-dropdown');
+  subjectsDropdown.style.display = 'none'; // Initially hide the subjects dropdown
 
-  const subjectSelect = document.createElement('select');
-  subjectSelect.id = `${selectId}SubjectSelect`;
-  subjectSelect.name = `${selectId}SubjectSelect`;
-
-  subjectsList.split(',').forEach(subject => {
+  // Create options for subjects dropdown
+  subjects.split(',').forEach(subject => {
     const option = document.createElement('option');
     option.value = subject.trim();
     option.text = subject.trim();
-    subjectSelect.appendChild(option);
+    subjectsDropdown.appendChild(option);
   });
 
-  parentDiv.appendChild(subjectSelect);
+  return subjectsDropdown;
 }
+
+
+// Fetch courses and subjects when the page loads
+document.addEventListener('DOMContentLoaded', fetchCourses);
+
+
 
     async function filterOptions(sourceSelectId, targetSelectId) {
       const sourceSelect = document.getElementById(sourceSelectId);
@@ -178,36 +205,6 @@ function createSubjectDropdown(subjectsList, selectId) {
       targetSelect.dispatchEvent(event);
     }
 
-
-   // Updated fetchCourses function
-async function fetchCourses() {
-  try {
-    // Fetch data.json
-    const dataResponse = await fetch('data.json');
-    if (!dataResponse.ok) {
-      throw new Error(`Failed to fetch data.json. Status: ${dataResponse.status}`);
-    }
-    data = await dataResponse.json();
-
-    // Fetch subjects.json
-    const subjectsResponse = await fetch('subjects.json');
-    if (!subjectsResponse.ok) {
-      throw new Error(`Failed to fetch subjects.json. Status: ${subjectsResponse.status}`);
-    }
-    subjectsData = await subjectsResponse.json();
-
-    // Fetch and populate the School select
-    fetchAndPopulateSelect('schoolSelect', data);
-
-    // Initialize subjectsMap
-    subjectsMap = new Map(subjectsData.map(item => [item.label, item.subjects]));
-
-    // Log the subjectsMap for debugging
-    console.log('subjectsMap:', subjectsMap);
-  } catch (error) {
-    console.error(error);
-  }
-}
 
 // ... (rest of your script)
 
