@@ -5,6 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kurswahl</title>
+  <style>
+    .course-selection-hidden {
+      display: none;
+    }
+  </style>
 </head>
 <body>
 
@@ -14,11 +19,37 @@
     <h2>Prüfungsfächer</h2>
 
     <h3>Schule</h3>
+<!-- Add a text input field for school -->
+<div class="course-selection">
+  <label for="schoolInput">Schule (z.B. 04y01):</label>
+  <br/>
 
-    <div class="course-selection">
-      <label for="schoolSelect">Schule:</label>
-      <select id="schoolSelect" name="schoolSelect" onchange="filterOptions('schoolSelect', 'column1Select')"></select>
-    </div>
+  <input type="text" id="schoolInput" name="schoolInput" oninput="filterOptions('schoolInput', 'column1Select')">
+  <br/>
+  <button type="button" onclick="selectEnteredSchool()">Enter</button>
+</div>
+
+<!-- Existing dropdown for school -->
+<div class="course-selection-hidden">
+  <label for="schoolSelect">Schule:</label>
+  <select id="schoolSelect" name="schoolSelect" onchange="filterOptions('schoolSelect', 'column1Select')"></select>
+</div>
+
+<script>
+  // Function to select entered school
+  function selectEnteredSchool() {
+    const schoolInput = document.getElementById('schoolInput');
+    const schoolSelect = document.getElementById('schoolSelect');
+
+    // Set the value of the dropdown to the entered value
+    schoolSelect.value = schoolInput.value;
+
+    // Trigger change event to update dependent dropdowns
+    const event = new Event('change');
+    schoolSelect.dispatchEvent(event);
+  }
+</script>
+
 
     <h3>Leistungskursfächer</h3>
     <div class="course-selection">
