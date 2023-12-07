@@ -79,114 +79,109 @@
   </form>
 
   <script>
-let data; // Declare the data variable
-let subjectsData;
-let subjectsMap;
+    let data; // Declare the data variable
+    let subjectsMap;
+    //let subjectsDropdownsMap = new Map(); // Map to keep track of subjects dropdowns
 
-// New function to fetch and parse subjects.json
-async function fetchSubjects() {
-  try {
-    const response = await fetch('subjects.json');
-    if (!response.ok) {
-      throw new Error(`Failed to fetch subjects.json. Status: ${response.status}`);
+    // New function to fetch and parse subjects.json
+    async function fetchSubjects() {
+      try {
+        const response = await fetch('subjects.json');
+        if (!response.ok) {
+          throw new Error(`Failed to fetch subjects.json. Status: ${response.status}`);
+        }
+        subjectsMap = new Map((await response.json()).map(item => [item.label, item.subjects]));
+
+      } catch (error) {
+        console.error(error);
+      }
     }
-    const subjectsData = await response.json();
 
-    // Create a map for quick access
-    subjectsMap = new Map(subjectsData.map(item => [item.label, item.subjects]));
+    // Function to create subjects dropdown
+    function createSubjectsDropdown(value, subjects) {
+      const subjectsDropdown = document.createElement('select');
+      subjectsDropdown.classList.add('subjects-dropdown');
+      subjectsDropdown.style.display = 'none'; // Initially hide the subjects dropdown
 
-  } catch (error) {
-    console.error(error);
-  }
-}
+      // Create options for subjects dropdown
+      subjects.split(',').forEach(subject => {
+        const option = document.createElement('option');
+        option.value = subject.trim();
+        option.text = subject.trim();
+        subjectsDropdown.appendChild(option);
+      });
 
-// Updated fetchCourses function
-async function fetchCourses() {
-  try {
-    const responseSubjects = await fetch('subjects.json');
-    if (!responseSubjects.ok) {
-      throw new Error(`Failed to fetch subjects.json. Status: ${responseSubjects.status}`);
+      return subjectsDropdown;
     }
-    const subjectsData = await responseSubjects.json();
 
-    // Create subjectsMap
-    subjectsMap = new Map(subjectsData.map(item => [item.label, item.subjects]));
+    // Updated fetchCourses function
+    async function fetchCourses() {
+      try {
+        await fetchSubjects(); // Fetch subjects first
 
-    const response = await fetch('data.json');
-    if (!response.ok) {
-      throw new Error(`Failed to fetch data.json. Status: ${response.status}`);
+        const response = await fetch('data.json');
+        if (!response.ok) {
+          throw new Error(`Failed to fetch data.json. Status: ${response.status}`);
+        }
+        data = await response.json();
+
+        // Fetch and populate the School select
+        fetchAndPopulateSelect('schoolSelect', data);
+      } catch (error) {
+        console.error(error);
+      }
     }
-    data = await response.json();
 
-    // Fetch and populate the School select
-    fetchAndPopulateSelect('schoolSelect', data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-// ...
+    // Updated fetchAndPopulateSelect function
+    function fetchAndPopulateSelect(selectId, data) {
+      const select = document.getElementById(selectId);
 
-// Updated fetchAndPopulateSelect function
-function fetchAndPopulateSelect(selectId, data) {
-  const select = document.getElementById(selectId);
+      // Clear existing options
+      select.innerHTML = '';
 
-  // Clear existing options
-  select.innerHTML = '';
+      // Create the default option for the school dropdown
+      if (selectId === 'schoolSelect') {
+        const defaultOption = document.createElement('option');
+        defaultOption.value = '';
+        defaultOption.text = 'Select...';
+        select.appendChild(defaultOption);
+      }
 
-  // Create the default option for the school dropdown
-  if (selectId === 'schoolSelect') {
-    const defaultOption = document.createElement('option');
-    defaultOption.value = '';
-    defaultOption.text = 'Select...';
-    select.appendChild(defaultOption);
-  }
+      const uniqueValues = [...new Set(data.map(item => item[selectId]))];
+      uniqueValues.forEach(value => {
+        const option = document.createElement('option');
+        option.value = value;
+        option.text = value;
+        select.appendChild(option);
 
-  const uniqueValues = [...new Set(data.map(item => item[selectId]))];
-  uniqueValues.forEach(value => {
-    const option = document.createElement('option');
-    option.value = value;
-    option.text = value;
-    select.appendChild(option);
+        // If the value is a label in subjects.json and a subjects dropdown hasn't been created for this selectId
+        if (subjectsMap.has(value) ) {
+          const subjectsDropdown = createSubjectsDropdown(value, subjectsMap.get(value));
+          //subjectsDropdownsMap.set(selectId, subjectsDropdown); // Save the subjects dropdown for this selectId
+          select.parentNode.appendChild(subjectsDropdown);
 
-    // If the value is a label in subjects.json, create and append a new subjects dropdown
-    if (subjectsMap.has(value)) {
-      const subjectsDropdown = createSubjectsDropdown(value, subjectsMap.get(value));
-      select.parentNode.appendChild(subjectsDropdown);
-
-      // Set up an event listener to hide the subjects dropdown when a different value is selected
-      select.addEventListener('change', () => {
-        subjectsDropdown.style.display = select.value === value ? 'inline-block' : 'none';
-        console.log('Selected Value:', select.value);
+          // Set up an event listener to hide the subjects dropdown when a different value is selected
+          select.addEventListener('change', () => {
+            subjectsDropdown.style.display = select.value === value ? 'inline-block' : 'none';
+            console.log('Selected Value:', select.value);
+          });
+        }
       });
     }
-  });
-}
 
-// ...
+    // ... (rest of your script)
 
-// Function to create subjects dropdown
-function createSubjectsDropdown(value, subjects) {
-  const subjectsDropdown = document.createElement('select');
-  subjectsDropdown.classList.add('subjects-dropdown');
-  subjectsDropdown.style.display = 'none'; // Initially hide the subjects dropdown
+    // Fetch courses and subjects when the page loads
+    document.addEventListener('DOMContentLoaded', fetchCourses);
 
-  // Create options for subjects dropdown
-  subjects.split(',').forEach(subject => {
-    const option = document.createElement('option');
-    option.value = subject.trim();
-    option.text = subject.trim();
-    subjectsDropdown.appendChild(option);
-  });
+    // Additional function to submit the form
+    function submitForm() {
+      // Add your logic to handle the selected values (e.g., send them to the server)
+      // Access the selected values using document.getElementById('selectId').value
+      console.log('Form submitted!');
+    }
 
-  return subjectsDropdown;
-}
-
-
-// Fetch courses and subjects when the page loads
-document.addEventListener('DOMContentLoaded', fetchCourses);
-
-
-
+    // Function to filter options and update dropdowns
     async function filterOptions(sourceSelectId, targetSelectId) {
       const sourceSelect = document.getElementById(sourceSelectId);
       const targetSelect = document.getElementById(targetSelectId);
@@ -203,20 +198,6 @@ document.addEventListener('DOMContentLoaded', fetchCourses);
       // Trigger change event for the target select to continue the cascade
       const event = new Event('change');
       targetSelect.dispatchEvent(event);
-    }
-
-
-// ... (rest of your script)
-
-
-    // Fetch courses when the page loads
-    document.addEventListener('DOMContentLoaded', fetchCourses);
-
-    // Additional function to submit the form
-    function submitForm() {
-      // Add your logic to handle the selected values (e.g., send them to the server)
-      // Access the selected values using document.getElementById('selectId').value
-      console.log('Form submitted!');
     }
   </script>
 </body>
