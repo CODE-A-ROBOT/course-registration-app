@@ -79,7 +79,86 @@
   </form>
 
   <script>
-    let data; // Declare the data variable
+let data; // Declare the data variable
+let subjectsData;
+let subjectsMap;
+
+// New function to fetch and parse subjects.json
+async function fetchSubjects() {
+  try {
+    const response = await fetch('subjects.json');
+    if (!response.ok) {
+      throw new Error(`Failed to fetch subjects.json. Status: ${response.status}`);
+    }
+    const subjectsData = await response.json();
+
+    // Create a map for quick access
+    subjectsMap = new Map(subjectsData.map(item => [item.label, item.subjects]));
+
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Call fetchSubjects when the page loads
+document.addEventListener('DOMContentLoaded', fetchSubjects);
+
+// ... (existing code)
+
+// Updated fetchAndPopulateSelect function
+// ... (existing code)
+
+// Updated fetchAndPopulateSelect function
+async function fetchAndPopulateSelect(selectId, data) {
+  const select = document.getElementById(selectId);
+  // Clear existing options
+  select.innerHTML = '';
+
+  // Create the default option for the school dropdown
+  if (selectId === 'schoolSelect') {
+    const defaultOption = document.createElement('option');
+    defaultOption.value = '';
+    defaultOption.text = 'Select...';
+    select.appendChild(defaultOption);
+  }
+
+  const uniqueValues = [...new Set(data.map(item => item[selectId]))];
+  uniqueValues.forEach(value => {
+    const option = document.createElement('option');
+    option.value = value;
+    option.text = value;
+    select.appendChild(option);
+    console.log(`Option value: ${value}`);
+
+    // Check if the selected value corresponds to a label in subjects.json
+    if (subjectsMap && subjectsMap.has(value)) {
+      // Log the value to check if this block is being executed
+      console.log(`Creating subject dropdown for ${value}`);
+      // Create a new dropdown for subjects
+      createSubjectDropdown(subjectsMap.get(value), selectId);
+    }
+  });
+}
+
+// ... (existing code)
+
+// New function to create a dropdown for subjects
+function createSubjectDropdown(subjectsList, selectId) {
+  const parentDiv = document.getElementById('courseForm'); // Use the appropriate parent element
+
+  const subjectSelect = document.createElement('select');
+  subjectSelect.id = `${selectId}SubjectSelect`;
+  subjectSelect.name = `${selectId}SubjectSelect`;
+
+  subjectsList.split(',').forEach(subject => {
+    const option = document.createElement('option');
+    option.value = subject.trim();
+    option.text = subject.trim();
+    subjectSelect.appendChild(option);
+  });
+
+  parentDiv.appendChild(subjectSelect);
+}
 
     async function filterOptions(sourceSelectId, targetSelectId) {
       const sourceSelect = document.getElementById(sourceSelectId);
@@ -99,44 +178,39 @@
       targetSelect.dispatchEvent(event);
     }
 
-    // Updated fetchAndPopulateSelect function
-    async function fetchAndPopulateSelect(selectId, data) {
-      const select = document.getElementById(selectId);
-      // Clear existing options
-      select.innerHTML = '';
 
-      // Create the default option for the school dropdown
-      if (selectId === 'schoolSelect') {
-        const defaultOption = document.createElement('option');
-        defaultOption.value = '';
-        defaultOption.text = 'Select...';
-        select.appendChild(defaultOption);
-      }
-      const uniqueValues = [...new Set(data.map(item => item[selectId]))];
-      uniqueValues.forEach(value => {
-        console.log('value: ' + value);
-        const option = document.createElement('option');
-        option.value = value;
-        option.text = value;
-        select.appendChild(option);
-      });
+   // Updated fetchCourses function
+async function fetchCourses() {
+  try {
+    // Fetch data.json
+    const dataResponse = await fetch('data.json');
+    if (!dataResponse.ok) {
+      throw new Error(`Failed to fetch data.json. Status: ${dataResponse.status}`);
     }
+    data = await dataResponse.json();
 
-    // Updated fetchCourses function
-    async function fetchCourses() {
-      try {
-        const response = await fetch('data.json');
-        if (!response.ok) {
-          throw new Error(`Failed to fetch data.json. Status: ${response.status}`);
-        }
-        data = await response.json();
-
-        // Fetch and populate the School select
-        fetchAndPopulateSelect('schoolSelect', data);
-      } catch (error) {
-        console.error(error);
-      }
+    // Fetch subjects.json
+    const subjectsResponse = await fetch('subjects.json');
+    if (!subjectsResponse.ok) {
+      throw new Error(`Failed to fetch subjects.json. Status: ${subjectsResponse.status}`);
     }
+    subjectsData = await subjectsResponse.json();
+
+    // Fetch and populate the School select
+    fetchAndPopulateSelect('schoolSelect', data);
+
+    // Initialize subjectsMap
+    subjectsMap = new Map(subjectsData.map(item => [item.label, item.subjects]));
+
+    // Log the subjectsMap for debugging
+    console.log('subjectsMap:', subjectsMap);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// ... (rest of your script)
+
 
     // Fetch courses when the page loads
     document.addEventListener('DOMContentLoaded', fetchCourses);
