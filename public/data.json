@@ -15,7 +15,7 @@
     "column11Select": "4",
     "column12Select": "(2)",
     "column13Select": "4",
-    "column14Select": "Zusätzliche Kurse"
+    "column14Select": "+"
   },
 
   {
@@ -34,7 +34,7 @@
     "column11Select": "-",
     "column12Select": "(2)",
     "column13Select": "4",
-    "column14Select": "Zusätzliche Kurse"
+    "column14Select": "+"
   },
 
   {
@@ -53,7 +53,7 @@
     "column11Select": "-",
     "column12Select": "(2)",
     "column13Select": "4",
-    "column14Select": "Zusätzliche Kurse"
+    "column14Select": "+"
   },
 
  {
@@ -72,7 +72,7 @@
     "column11Select": "4",
     "column12Select": "(2)",
     "column13Select": "4",
-    "column14Select": "Zusätzliche Kurse"
+    "column14Select": "+"
   },
   
  {
@@ -91,7 +91,7 @@
     "column11Select": "4",
     "column12Select": "(2)",
     "column13Select": "4",
-    "column14Select": "Zusätzliche Kurse"
+    "column14Select": "+"
   },
 
   {
@@ -110,7 +110,7 @@
     "column11Select": "-",
     "column12Select": "(2)",
     "column13Select": "4",
-    "column14Select": "Zusätzliche Kurse"
+    "column14Select": "+"
   },
 
   {
@@ -129,7 +129,7 @@
     "column11Select": "4",
     "column12Select": "(2)",
     "column13Select": "4",
-    "column14Select": "Zusätzliche Kurse"
+    "column14Select": "+"
   },
 
  {
@@ -148,7 +148,7 @@
     "column11Select": "4",
     "column12Select": "(2)",
     "column13Select": "4",
-    "column14Select": "Zusätzliche Kurse"
+    "column14Select": "+"
   },
 
  {
@@ -167,7 +167,7 @@
     "column11Select": "4",
     "column12Select": "(2)",
     "column13Select": "4",
-    "column14Select": "Zusätzliche Kurse"
+    "column14Select": "+"
   },
 
   {
@@ -186,7 +186,7 @@
     "column11Select": "-",
     "column12Select": "(2)",
     "column13Select": "4",
-    "column14Select": "Zusätzliche Kurse"
+    "column14Select": "+"
   },
 
   {
@@ -205,7 +205,7 @@
     "column11Select": "-",
     "column12Select": "(2)",
     "column13Select": "4",
-    "column14Select": "Zusätzliche Kurse"
+    "column14Select": "+"
   },
 
   {
@@ -224,7 +224,7 @@
     "column11Select": "-",
     "column12Select": "(2)",
     "column13Select": "4",
-    "column14Select": "Zusätzliche Kurse"
+    "column14Select": "+"
   },
 
   {
@@ -243,7 +243,7 @@
     "column11Select": "-",
     "column12Select": "(2)",
     "column13Select": "4",
-    "column14Select": "Zusätzliche Kurse"
+    "column14Select": "+"
   },
 
   {
@@ -262,7 +262,7 @@
     "column11Select": "-",
     "column12Select": "(2)",
     "column13Select": "4",
-    "column14Select": "Zusätzliche Kurse"
+    "column14Select": "+"
   },
 
   {
@@ -281,7 +281,7 @@
     "column11Select": "-",
     "column12Select": "(2)",
     "column13Select": "4",
-    "column14Select": "Zusätzliche Kurse"
+    "column14Select": "+"
   },
 
   {
@@ -300,7 +300,7 @@
     "column11Select": "-",
     "column12Select": "(2)",
     "column13Select": "4",
-    "column14Select": "Zusätzliche Kurse"
+    "column14Select": "+"
   },
 
   {
@@ -319,7 +319,7 @@
     "column11Select": "-",
     "column12Select": "(2)",
     "column13Select": "4",
-    "column14Select": "Zusätzliche Kurse"
+    "column14Select": "+"
   },
 
   {
@@ -338,7 +338,7 @@
     "column11Select": "-",
     "column12Select": "(2)",
     "column13Select": "4",
-    "column14Select": "Zusätzliche Kurse"
+    "column14Select": "+"
   },
 
  {
@@ -357,7 +357,7 @@
     "column11Select": "-",
     "column12Select": "-",
     "column13Select": "4",
-    "column14Select": "Zusätzliche Kurse"
+    "column14Select": "+"
   },
 
  {
@@ -376,7 +376,7 @@
     "column11Select": "-",
     "column12Select": "-",
     "column13Select": "4",
-    "column14Select": "Zusätzliche Kurse"
+    "column14Select": "+"
   },
 
  {
@@ -395,12 +395,12 @@
     "column11Select": "-",
     "column12Select": "-",
     "column13Select": "4",
-    "column14Select": "Zusätzliche Kurse"
+    "column14Select": "+"
   },
 
   {
     "row": "100",
-    "schoolSelect": "04y02",
+    "schoolSelect": "04Y02",
     "column1Select": "Fremdsprache",
     "column2Select": "Deutsch",
     "column3Select": "Aufgabenfeld II",
@@ -414,7 +414,7 @@
     "column11Select": "-",
     "column12Select": "-",
     "column13Select": "4",
-    "column14Select": "Zusätzliche Kurse"
+    "column14Select": "+"
   }
 
 ]
