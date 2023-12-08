@@ -5,11 +5,28 @@
     },
     {
       "label": "*",
-      "subjects": "Fremdsprache,Deutsch,Mathematik, Musik/Bildende Kunst, Aufgabenfeld II"
+      "subjects": "Deutsch, Mathematik, Fremdsprache, Aufgabenfeld II, Naturwissenschaft, Künstlerisches Fach, Sport"
     },
     {
       "label": "Fremdsprache",
-      "subjects": "Englisch, Französisch, Spanisch, Chinesisch"
+      "subjects": "Englisch, Französisch, Latein, Italienish"
+    },
+    {
+      "label": "Naturwissenschaft",
+      "subjects": "Physik, Chemie, Biologie"
+    },
+    {
+      "label": "Künstlerisches Fach",
+      "subjects": "Musik, Kunst, Darstellendes Spiel"
+    },
+    {
+      "label": "Sport",
+      "subjects": "Sport-Praxis, Sport-Theorie"
+    },
+    {
+      "label": "Zusätzliche Kurse",
+      "subjects": "Deutsch, Debating, Künstl. Werkstatt, Geschichte, Geographie, ErgänzungskursStudium und Beruf, Physik, Ensemblekurs"
     }
+
   ]
   

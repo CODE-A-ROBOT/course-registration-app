@@ -1,7 +1,7 @@
 [
   {
     "row": "1",
-    "schoolSelect": "04y01",
+    "schoolSelect": "04Y01",
     "column1Select": "Fremdsprache",
     "column2Select": "Deutsch",
     "column3Select": "Aufgabenfeld II",
@@ -11,12 +11,16 @@
     "column7Select": "2",
     "column8Select": "-",
     "column9Select": "(2)",
-    "column10Select": "-"
+    "column10Select": "-",
+    "column11Select": "-",
+    "column12Select": "-",
+    "column13Select": "-",
+    "column14Select": "Zusätzliche Kurse"
   },
 
   {
     "row": "2",
-    "schoolSelect": "04y01",
+    "schoolSelect": "04Y01",
     "column1Select": "Fremdsprache",
     "column2Select": "Deutsch",
     "column3Select": "Aufgabenfeld II",
@@ -31,7 +35,7 @@
 
   {
     "row": "4",
-    "schoolSelect": "04y01",
+    "schoolSelect": "04Y01",
     "column1Select": "Fremdsprache",
     "column2Select": "Fremdsprache",
     "column3Select": "Deutsch",
@@ -46,7 +50,7 @@
 
  {
     "row": "5",
-    "schoolSelect": "04y01",
+    "schoolSelect": "04Y01",
     "column1Select": "Fremdsprache",
     "column2Select": "Fremdsprache",   
     "column3Select": "Deutsch",
@@ -61,7 +65,7 @@
   
  {
     "row": "6",
-    "schoolSelect": "04y01",
+    "schoolSelect": "04Y01",
     "column1Select": "Fremdsprache",
     "column2Select": "Fremdsprache",   
     "column3Select": "Mathematik",
@@ -76,7 +80,7 @@
 
   {
     "row": "7",
-    "schoolSelect": "04y01",
+    "schoolSelect": "04Y01",
     "column1Select": "Fremdsprache",
     "column2Select": "Musik/Kunst",
     "column3Select": "Deutsch",
@@ -91,7 +95,7 @@
 
   {
     "row": "8",
-    "schoolSelect": "04y01",
+    "schoolSelect": "04Y01",
     "column1Select": "Fremdsprache",
     "column2Select": "Musik/Kunst",
     "column3Select": "Deutsch",
@@ -106,7 +110,7 @@
 
  {
     "row": "9",
-    "schoolSelect": "04y01",
+    "schoolSelect": "04Y01",
     "column1Select": "Fremdsprache",
     "column2Select": "Musik/Kunst",  
     "column3Select": "Mathematik",
@@ -121,7 +125,7 @@
 
  {
     "row": "13",
-    "schoolSelect": "04y01",
+    "schoolSelect": "04Y01",
     "column1Select": "Fremdsprache",
     "column2Select": "Mathematik",  
     "column3Select": "Aufgabenfeld II",
@@ -136,7 +140,7 @@
 
   {
     "row": "14",
-    "schoolSelect": "04y01",
+    "schoolSelect": "04Y01",
     "column1Select": "Fremdsprache",
     "column2Select": "Naturwissenschaft",
     "column3Select": "Deutsch",
@@ -151,7 +155,7 @@
 
   {
     "row": "15",
-    "schoolSelect": "04y01",
+    "schoolSelect": "04Y01",
     "column1Select": "Fremdsprache",
     "column2Select": "Naturwissenschaft",
     "column3Select": "Mathematik",  
@@ -166,7 +170,7 @@
 
   {
     "row": "26",
-    "schoolSelect": "04y01",
+    "schoolSelect": "04Y01",
     "column1Select": "Mathematik",
     "column2Select": "Naturwissenschaft",
     "column3Select": "Deutsch",
@@ -181,7 +185,7 @@
 
   {
     "row": "27",
-    "schoolSelect": "04y01",
+    "schoolSelect": "04Y01",
     "column1Select": "Mathematik",
     "column2Select": "Naturwissenschaft",
     "column3Select": "Fremdsprache",
@@ -196,7 +200,7 @@
 
   {
     "row": "32",
-    "schoolSelect": "04y01",
+    "schoolSelect": "04Y01",
     "column1Select": "Naturwissenschaft",
     "column2Select": "Deutsch",
     "column3Select": "Fremdsprache",
@@ -211,7 +215,7 @@
 
   {
     "row": "33",
-    "schoolSelect": "04y01",
+    "schoolSelect": "04Y01",
     "column1Select": "Naturwissenschaft",
     "column2Select": "Deutsch",
     "column3Select": "Mathematik",
@@ -226,7 +230,7 @@
 
   {
     "row": "34",
-    "schoolSelect": "04y01",
+    "schoolSelect": "04Y01",
     "column1Select": "Naturwissenschaft",
     "column2Select": "Musik/Kunst",
     "column3Select": "Fremdsprache",
@@ -241,7 +245,7 @@
 
   {
     "row": "35",
-    "schoolSelect": "04y01",
+    "schoolSelect": "04Y01",
     "column1Select": "Naturwissenschaft",
     "column2Select": "Musik/Kunst",
     "column3Select": "Fremdsprache",
@@ -256,7 +260,7 @@
 
   {
     "row": "36",
-    "schoolSelect": "04y01",
+    "schoolSelect": "04Y01",
     "column1Select": "Naturwissenschaft",
     "column2Select": "Musik/Kunst",
     "column3Select": "Mathematik",
@@ -271,7 +275,7 @@
 
  {
     "row": "40",
-    "schoolSelect": "04y01",
+    "schoolSelect": "04Y01",
     "column1Select": "Naturwissenschaft",
     "column2Select": "Naturwissenschaft",
     "column3Select": "Fremdsprache",
@@ -286,7 +290,7 @@
 
  {
     "row": "41",
-    "schoolSelect": "04y01",
+    "schoolSelect": "04Y01",
     "column1Select": "Naturwissenschaft",
     "column2Select": "Naturwissenschaft",
     "column3Select": "Fremdsprache",
@@ -301,7 +305,7 @@
 
  {
     "row": "42",
-    "schoolSelect": "04y01",
+    "schoolSelect": "04Y01",
     "column1Select": "Naturwissenschaft",
     "column2Select": "Naturwissenschaft",
     "column3Select": "Mathematik",

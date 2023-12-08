@@ -72,59 +72,46 @@
       <label for="column4Select">Prüfungsfach 4:</label>
       <select id="column4Select" name="column4Select" onchange="filterOptions('column4Select', 'column5Select')"></select>
     </div>
-
+<!--
     <h3>5. PK</h3>
     <div class="course-selection">
       <label for="column5Select">Referenzfach:</label>
       <select id="column5Select" name="column5Select" onchange="filterOptions('column5Select', 'column6Select')"></select>
     </div>
+  -->
 
-    <h3>Weitere Grundkurse mit Belegverpflichtung</h3>
+    <h3>5. PK</h3>
+
     <div class="course-selection">
-      <label for="column6Select">Deutsch</label>
+      <label for="column5Select">Referenzfach:</label>
+      <select id="column5Select" name="column5Select" onchange="handlePKSelection('column5Select', 'column6Select')"></select>
+    </div>
+
+
+    <h3>weitere Grundkurse mit Belegverpflichtung</h3>
+    <div class="course-selection">
+      <label for="column6Select">De:</label>
       <select id="column6Select" name="column6Select" onchange="filterOptions('column6Select', 'column7Select')"></select>
     </div>
 
     <div class="course-selection">
-      <label for="column7Select">Künstlerisches Fach</label>
+      <label for="column7Select">FS</label>
       <select id="column7Select" name="column7Select" onchange="filterOptions('column7Select', 'column8Select')"></select>
     </div>
 
     <div class="course-selection">
-      <label for="column8Select">Fremdprache</label>
+      <label for="column8Select">Ge:</label>
       <select id="column8Select" name="column8Select" onchange="filterOptions('column8Select', 'column9Select')"></select>
     </div>
 
     <div class="course-selection">
-      <label for="column9Select">Geschichte/Politikwissenschaft</label>
+      <label for="column9Select">PW</label>
       <select id="column9Select" name="column9Select" onchange="filterOptions('column9Select', 'column10Select')"></select>
     </div>
 
     <div class="course-selection">
-      <label for="column10Select">Mathematik</label>
-      <select id="column10Select" name="column10Select" onchange="filterOptions('column10Select', 'column11Select')"></select>
-    </div>
-
-    <div class="course-selection">
-      <label for="column11Select">Naturwissenschaft</label>
-      <select id="column11Select" name="column11Select" onchange="filterOptions('column11Select', 'column12Select')"></select>
-    </div>
-
-    <div class="course-selection">
-      <label for="column12Select">Physik/Chemie</label>
-      <select id="column12Select" name="column12Select" onchange="filterOptions('column12Select', 'column13Select')"></select>
-    </div>
-
-    <div class="course-selection">
-      <label for="column13Select">Sport</label>
-      <select id="column13Select" name="column13Select" onchange="filterOptions('column13Select', 'column14Select')"></select>
-    </div>
-
-    <h3>Zusätzliche Kurse</h3>
-
-    <div class="course-selection">
-      <label for="column14Select">Zusätzliche Kurse</label>
-      <select id="column14Select" name="column14Select"></select>
+      <label for="column10Select">Ma</label>
+      <select id="column10Select" name="column10Select"></select>
     </div>
 
     <br>
@@ -214,8 +201,7 @@ function fetchAndPopulateSelect(selectId, data) {
   subjectsMap.forEach((subjects, value) => {
     const subjectsDropdown = createSubjectsDropdown(value, subjects, selectId, select.parentNode);
     if (subjectsDropdown) {
-      console.log('select.parentNode:', select.parentNode);
-
+      //console.log('select.parentNode:', select.parentNode);
       select.parentNode.appendChild(subjectsDropdown);
     }
   });
@@ -228,23 +214,23 @@ function fetchAndPopulateSelect(selectId, data) {
 
       if (subjectsDropdown) {
         subjectsDropdown.style.display = select.value === value ? 'inline-block' : 'none';
-        console.log('Selected Value:', select.value);
+        //console.log('Selected Value:', subjectsDropdownId, subjectsDropdown.style.display);
       }
     });
   });
 }
-
-// Updated createSubjectsDropdown function
 function createSubjectsDropdown(value, subjects, selectId, parentNode) {
   const subjectsDropdownId = `${selectId}-${value}-subjects-dropdown`;
+  //console.log('createSubjectsDropdown selectId: ' + selectId + ' value: ' + value);
 
-  console.log(`Creating subjects dropdown for ${selectId} with value ${value}`);
   const subjectsDropdown = document.createElement('select');
   subjectsDropdown.classList.add('subjects-dropdown');
   subjectsDropdown.id = subjectsDropdownId;
   subjectsDropdown.style.display = 'none'; // Initially hide the subjects dropdown
 
-  // Create options for subjects dropdown
+  if (subjects === undefined) {
+    return null;
+  }
   subjects.split(',').forEach(subject => {
     const option = document.createElement('option');
     option.value = subject.trim();
@@ -256,14 +242,67 @@ function createSubjectsDropdown(value, subjects, selectId, parentNode) {
   // Add subject dropdowns to the subjects dropdown if the subject is again in subjectsMap
   subjects.split(',').forEach(subject => {
     const subjectValue = subject.trim();
-    console.log('createSubjectsDropdown subjectValue: ' + subjectValue);
+    //console.log('createSubjectsDropdown subjectValue: ' + subjectValue);
     if (subjectsMap.has(subjectValue)) {
-      console.log('subjectsMap.has(subjectValue): ' + subjectValue);
+      //console.log('subjectsMap.has(subjectValue): ' + subjectValue);
 
       const nestedSubjectsDropdown = createSubjectsDropdown(subjectValue, subjectsMap.get(subjectValue), subjectsDropdownId, parentNode);
       if (nestedSubjectsDropdown) {
-        console.log('subjectsDropdown:', subjectsDropdown);
-        console.log('parentNode:', parentNode);
+        //console.log('subjectsDropdown:', subjectsDropdown);
+        //console.log('parentNode:', parentNode);
+
+        parentNode.appendChild(nestedSubjectsDropdown);
+      }
+    }
+  });
+
+  // Set up an event listener to hide/show subjects dropdowns based on the selected value
+  subjectsDropdown.addEventListener('change', () => {
+    subjectsMap.forEach((_, value) => {
+      const nestedSubjectsDropdownId = `${selectId}-${value}-subjects-nesteddropdown`;
+      const nestedSubjectsDropdown = document.getElementById(nestedSubjectsDropdownId);
+
+      if (nestedSubjectsDropdown) {
+        //nestedSubjectsDropdown.style.display = select.value === value ? 'inline-block' : 'none';
+        //console.log('Selected Value:', subjectsDropdown.value);
+      }
+    });
+  });
+
+  return subjectsDropdown;
+}
+// Updated createSubjectsDropdown function
+function createSubjectsDropdownPK(value, subjects, selectId, parentNode) {
+  const subjectsDropdownId = `${selectId}-${value}-subjects-dropdown`;
+  //console.log('createSubjectsDropdown selectId: ' + selectId + ' value: ' + value);
+
+  const subjectsDropdown = document.createElement('select');
+  subjectsDropdown.classList.add('subjects-dropdown');
+  subjectsDropdown.id = subjectsDropdownId;
+  subjectsDropdown.style.display = 'none'; // Initially hide the subjects dropdown
+
+  if (subjects === undefined) {
+    return null;
+  }
+  subjects.split(',').forEach(subject => {
+    const option = document.createElement('option');
+    option.value = subject.trim();
+    option.text = subject.trim();
+
+    subjectsDropdown.appendChild(option);
+  });
+
+  // Add subject dropdowns to the subjects dropdown if the subject is again in subjectsMap
+  subjects.split(',').forEach(subject => {
+    const subjectValue = subject.trim();
+    //console.log('createSubjectsDropdown subjectValue: ' + subjectValue);
+    if (subjectsMap.has(subjectValue)) {
+      //console.log('subjectsMap.has(subjectValue): ' + subjectValue);
+
+      const nestedSubjectsDropdown = createSubjectsDropdown(subjectValue, subjectsMap.get(subjectValue), subjectsDropdownId, parentNode);
+      if (nestedSubjectsDropdown) {
+        //console.log('subjectsDropdown:', subjectsDropdown);
+        //console.log('parentNode:', parentNode);
 
         parentNode.appendChild(nestedSubjectsDropdown);
       }
@@ -278,7 +317,7 @@ function createSubjectsDropdown(value, subjects, selectId, parentNode) {
 
       if (nestedSubjectsDropdown) {
         nestedSubjectsDropdown.style.display = select.value === value ? 'inline-block' : 'none';
-        console.log('Selected Value:', subjectsDropdown.value);
+        //console.log('Selected Value:', subjectsDropdown.value);
       }
     });
   });
@@ -317,5 +356,86 @@ function createSubjectsDropdown(value, subjects, selectId, parentNode) {
       targetSelect.dispatchEvent(event);
     }
   </script>
+<!-- ... (Your existing HTML code) -->
+
+<!-- ... (Your existing HTML code) -->
+
+<script>
+  // Function to handle PK selection
+  function handlePKSelection(sourceSelectId, targetSelectId) {
+    const sourceSelect = document.getElementById(sourceSelectId);
+    const targetSelect = document.getElementById(targetSelectId);
+
+    // Get the selected value from the source select
+    const selectedValue = sourceSelect.value;
+
+    // Clear existing options
+    targetSelect.innerHTML = '';
+
+    if (selectedValue === '*') {
+      // Show subjects dropdown
+      fetchAndPopulateSelect(targetSelectId, data);
+      console.log('handleAdditionalSubjects: sourceSelectId: ' + sourceSelectId +  ' targetSelectId: ' + targetSelectId);
+
+      handleAdditionalSubjects(sourceSelectId, targetSelectId, targetSelect, selectedValue);
+    } else {
+      // Hide subjects dropdown
+      targetSelect.style.display = 'none';
+    }
+  }
+
+  // Function to handle additional subjects dropdowns
+  function handleAdditionalSubjects(sourceSelectId, targetSelectId, targetSelect, selectedValue) {
+    // Check if the selected subject has additional subjects
+    if (subjectsMap && subjectsMap.has(selectedValue)) {
+      const additionalSubjects = subjectsMap.get(selectedValue);
+
+      // Show the subjects dropdown
+      targetSelect.style.display = 'inline-block';
+
+      // Check if additionalSubjects is a string before attempting to split it
+      if (typeof additionalSubjects === 'string') {
+        console.log('additionalSubjects: ' + additionalSubjects);
+        const additionalSubjectsArray = additionalSubjects.split(',');
+        console.log('additionalSubjectsArray: ' + additionalSubjectsArray);
+        console.log('additionalSubjectsArray[0]: ' + additionalSubjectsArray[0]);
+        console.log('additionalSubjectsArray[1]: ' + additionalSubjectsArray[1]);
+
+        // Check if there are additional subjects
+        if (additionalSubjectsArray.length > 1) {
+          
+          // Populate the subjects dropdown
+          additionalSubjectsArray.forEach(subject => {
+            const option = document.createElement('option');
+            option.value = subject.trim();
+            option.text = subject.trim();
+            targetSelect.appendChild(option);
+          });
+
+          // Create and append additional subjects dropdowns for all values in subjectsMap
+          additionalSubjectsArray.forEach(subject => {
+            const additionalSubjectsDropdown = createSubjectsDropdownPK(subject.trim(), subjectsMap.get(subject.trim()), sourceSelectId, targetSelectId);
+            console.log("additionalSubjectsDropdown: " + additionalSubjectsDropdown);
+            console.log("targetSelect.parentNode: " + targetSelect.parentNode);
+            if (additionalSubjectsDropdown) {
+              targetSelect.parentNode.appendChild(additionalSubjectsDropdown);
+              additionalSubjectsDropdown.style.display = 'inline-block';
+
+            }
+
+          });
+        }
+      }
+    }
+  }
+
+  // ... (Your existing functions and code)
+</script>
+
+<!-- ... (Your existing HTML code) -->
+
+
+<!-- ... (Your existing HTML code) -->
+
 </body>
 </html>
