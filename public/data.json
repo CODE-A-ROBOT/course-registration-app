@@ -12,9 +12,9 @@
     "column8Select": "-",
     "column9Select": "(2)",
     "column10Select": "-",
-    "column11Select": "-",
-    "column12Select": "-",
-    "column13Select": "-",
+    "column11Select": "4",
+    "column12Select": "(2)",
+    "column13Select": "4",
     "column14Select": "Zusätzliche Kurse"
   },
 
@@ -30,7 +30,11 @@
     "column7Select": "2",
     "column8Select": "-",
     "column9Select": "(2)",
-    "column10Select": "4"
+    "column10Select": "4",
+    "column11Select": "-",
+    "column12Select": "(2)",
+    "column13Select": "4",
+    "column14Select": "Zusätzliche Kurse"
   },
 
   {
@@ -45,7 +49,11 @@
     "column7Select": "2",
     "column8Select": "-",
     "column9Select": "(2)",
-    "column10Select": "4"
+    "column10Select": "4",    
+    "column11Select": "-",
+    "column12Select": "(2)",
+    "column13Select": "4",
+    "column14Select": "Zusätzliche Kurse"
   },
 
  {
@@ -60,7 +68,11 @@
     "column7Select": "2",
     "column8Select": "-",
     "column9Select": "(2)",
-    "column10Select":"4"
+    "column10Select":"4",    
+    "column11Select": "4",
+    "column12Select": "(2)",
+    "column13Select": "4",
+    "column14Select": "Zusätzliche Kurse"
   },
   
  {
@@ -75,7 +87,11 @@
     "column7Select": "2",
     "column8Select": "-",
     "column9Select": "(2)",
-    "column10Select":"-"
+    "column10Select":"-",    
+    "column11Select": "4",
+    "column12Select": "(2)",
+    "column13Select": "4",
+    "column14Select": "Zusätzliche Kurse"
   },
 
   {
@@ -90,7 +106,11 @@
     "column7Select": "-",
     "column8Select": "-",
     "column9Select": "(2)",
-    "column10Select": "4"
+    "column10Select": "4",    
+    "column11Select": "-",
+    "column12Select": "(2)",
+    "column13Select": "4",
+    "column14Select": "Zusätzliche Kurse"
   },
 
   {
@@ -105,7 +125,11 @@
     "column7Select": "-",
     "column8Select": "-",
     "column9Select": "(2)",
-    "column10Select": "4"
+    "column10Select": "4",    
+    "column11Select": "4",
+    "column12Select": "(2)",
+    "column13Select": "4",
+    "column14Select": "Zusätzliche Kurse"
   },
 
  {
@@ -120,7 +144,11 @@
     "column7Select": "-",
     "column8Select": "-",
     "column9Select": "(2)",
-    "column10Select":"-"
+    "column10Select":"-",    
+    "column11Select": "4",
+    "column12Select": "(2)",
+    "column13Select": "4",
+    "column14Select": "Zusätzliche Kurse"
   },
 
  {
@@ -135,7 +163,11 @@
     "column7Select": "2",
     "column8Select": "-",
     "column9Select": "(2)",
-    "column10Select":"-"
+    "column10Select":"-",    
+    "column11Select": "4",
+    "column12Select": "(2)",
+    "column13Select": "4",
+    "column14Select": "Zusätzliche Kurse"
   },
 
   {
@@ -150,7 +182,11 @@
     "column7Select": "2",
     "column8Select": "-",
     "column9Select": "(2)",
-    "column10Select": "4"
+    "column10Select": "4",    
+    "column11Select": "-",
+    "column12Select": "(2)",
+    "column13Select": "4",
+    "column14Select": "Zusätzliche Kurse"
   },
 
   {
@@ -165,7 +201,11 @@
     "column7Select": "2",
     "column8Select": "-",
     "column9Select": "(2)",
-    "column10Select": "-"
+    "column10Select": "-",    
+    "column11Select": "-",
+    "column12Select": "(2)",
+    "column13Select": "4",
+    "column14Select": "Zusätzliche Kurse"
   },
 
   {
@@ -180,7 +220,11 @@
     "column7Select": "2",
     "column8Select": "4",
     "column9Select": "(2)",
-    "column10Select": "-"
+    "column10Select": "-",    
+    "column11Select": "-",
+    "column12Select": "(2)",
+    "column13Select": "4",
+    "column14Select": "Zusätzliche Kurse"
   },
 
   {
@@ -195,7 +239,11 @@
     "column7Select": "2",
     "column8Select": "-",
     "column9Select": "(2)",
-    "column10Select": "-"
+    "column10Select": "-",    
+    "column11Select": "-",
+    "column12Select": "(2)",
+    "column13Select": "4",
+    "column14Select": "Zusätzliche Kurse"
   },
 
   {
@@ -210,7 +258,11 @@
     "column7Select": "2",
     "column8Select": "-",
     "column9Select": "(2)",
-    "column10Select": "4"
+    "column10Select": "4",    
+    "column11Select": "-",
+    "column12Select": "(2)",
+    "column13Select": "4",
+    "column14Select": "Zusätzliche Kurse"
   },
 
   {
@@ -225,7 +277,11 @@
     "column7Select": "2",
     "column8Select": "4",
     "column9Select": "(2)",
-    "column10Select": "-"
+    "column10Select": "-",    
+    "column11Select": "-",
+    "column12Select": "(2)",
+    "column13Select": "4",
+    "column14Select": "Zusätzliche Kurse"
   },
 
   {
@@ -240,7 +296,11 @@
     "column7Select": "-",
     "column8Select": "-",
     "column9Select": "(2)",
-    "column10Select": "4"
+    "column10Select": "4",    
+    "column11Select": "-",
+    "column12Select": "(2)",
+    "column13Select": "4",
+    "column14Select": "Zusätzliche Kurse"
   },
 
   {
@@ -255,7 +315,11 @@
     "column7Select": "-",
     "column8Select": "-",
     "column9Select": "(2)",
-    "column10Select": "-"
+    "column10Select": "-",    
+    "column11Select": "-",
+    "column12Select": "(2)",
+    "column13Select": "4",
+    "column14Select": "Zusätzliche Kurse"
   },
 
   {
@@ -270,7 +334,11 @@
     "column7Select": "-",
     "column8Select": "4",
     "column9Select": "(2)",
-    "column10Select": "-"
+    "column10Select": "-",    
+    "column11Select": "-",
+    "column12Select": "(2)",
+    "column13Select": "4",
+    "column14Select": "Zusätzliche Kurse"
   },
 
  {
@@ -285,7 +353,11 @@
     "column7Select": "2",
     "column8Select": "-",
     "column9Select": "(2)",
-    "column10Select": "4"
+    "column10Select": "4",    
+    "column11Select": "-",
+    "column12Select": "-",
+    "column13Select": "4",
+    "column14Select": "Zusätzliche Kurse"
   },
 
  {
@@ -300,7 +372,11 @@
     "column7Select": "2",
     "column8Select": "-",
     "column9Select": "(2)",
-    "column10Select": "-"
+    "column10Select": "-",    
+    "column11Select": "-",
+    "column12Select": "-",
+    "column13Select": "4",
+    "column14Select": "Zusätzliche Kurse"
   },
 
  {
@@ -315,7 +391,11 @@
     "column7Select": "2",
     "column8Select": "4",
     "column9Select": "(2)",
-    "column10Select": "-"
+    "column10Select": "-",    
+    "column11Select": "-",
+    "column12Select": "-",
+    "column13Select": "4",
+    "column14Select": "Zusätzliche Kurse"
   },
 
   {
@@ -330,7 +410,11 @@
     "column7Select": "2",
     "column8Select": "-",
     "column9Select": "(2)",
-    "column10Select": "4"
+    "column10Select": "4",
+    "column11Select": "-",
+    "column12Select": "-",
+    "column13Select": "4",
+    "column14Select": "Zusätzliche Kurse"
   }
 
 ]
