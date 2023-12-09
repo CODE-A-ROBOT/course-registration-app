@@ -1,0 +1,24 @@
+<!-- Display labels, element IDs, and selected values in a list -->
+<h2>Selected Courses Summary</h2>
+<ul id="selectedCoursesList"></ul>
+
+<script>
+  document.addEventListener('DOMContentLoaded', displaySummary);
+
+  function displaySummary() {
+    // Retrieve the selected courses from the URL parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedCoursesJSON = urlParams.get('selectedCourses');
+    const selectedCourses = JSON.parse(decodeURIComponent(selectedCoursesJSON));
+
+    // Display the selected courses in a list
+    const selectedCoursesList = document.getElementById('selectedCoursesList');
+    selectedCourses.forEach(course => {
+      for (const label in course) {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `${label}: ${course[label]}<br>`;
+        selectedCoursesList.appendChild(listItem);
+      }
+    });
+  }
+</script>
