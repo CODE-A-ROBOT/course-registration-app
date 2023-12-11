@@ -48,16 +48,34 @@
 
 
     <h3>Leistungskursfächer</h3>
+    
     <div class="course-selection">
       <label id="column1SelectLabel" for="column1Select">Leistungskursfach 1</label>:
       <select id="column1Select" name="column1Select" onchange="filterOptions('column1Select', 'column2Select')"></select>
     </div>
+    <!--
+    <div class="course-selection">
+      <select id="column1SelectLabel" name="column1SelectLabel">
+        <option value="Leistungskursfach1">Leistungskursfach 1</option>
+        <option value="Leistungskursfach2">Leistungskursfach 2</option>
+      </select>
+      <select id="column1Select" name="column1Select" onchange="filterOptions('column1Select', 'column2Select')"></select>
+    </div>    
+  -->
 
     <div class="course-selection">
       <label id="column2SelectLabel" for="column2Select">Leistungskursfach 2:</label>
       <select id="column2Select" name="column2Select" onchange="filterOptions('column2Select', 'column3Select')"></select>
     </div>
-
+    <!--
+    <div class="course-selection">
+      <select id="column2SelectLabel" name="column2SelectLabel">
+        <option value="Leistungskursfach1">Leistungskursfach 2</option>
+        <option value="Leistungskursfach2">Leistungskursfach 1</option>
+      </select>      
+      <select id="column2Select" name="column2Select" onchange="filterOptions('column2Select', 'column3Select')"></select>
+    </div>
+  -->
     <h3>Prüfungsfächer</h3>
     <div class="course-selection">
       <label id="column3SelectLabel" for="column3Select">Prüfungsfach 3:</label>

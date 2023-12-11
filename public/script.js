@@ -4,7 +4,7 @@ var replacedSelectsMap = [];
 var dataReplaced = [];
 
 // Function to replace the placeholder in a specified column
-const replacePlaceholderInColumn = (row, column, placeholder) => {
+const expandPlaceholderInColumn = (row, column, placeholder) => {
   if (row[column] === placeholder) {
     // Assuming subjectsMap is created during fetchSubjects
     const subjectList = subjectsMap.get(placeholder).split(',');
@@ -24,6 +24,18 @@ const replacePlaceholderInColumn = (row, column, placeholder) => {
   return [row]; // If no replacement needed, return the original row
 };
 
+const duplicateColumn1And2Switched = (rows, column1Select, column2Select) => {
+  const newRows = [];
+  rows.forEach(row => {
+    // Create a new row with values switched
+    const newRow = { ...row, [column1Select]: row[column2Select], [column2Select]: row[column1Select] };
+    console.log('@@ row:', row);
+    console.log('@@ newRow:', newRow);
+    newRows.push(row);
+    newRows.push(newRow);
+  });
+  return newRows;
+}
 
 // New function to fetch and parse subjects.json
 async function fetchSubjects() {
@@ -46,24 +58,20 @@ async function fetchSubjects() {
     //let dataReplaced = [];
       data.forEach(row => {
         // Replace '*' in column5Select
-      const rowsAfterStarReplacement = replacePlaceholderInColumn(row, 'column5Select', '*');
-      
-      // Log what is being added for '*' replacement
-      rowsAfterStarReplacement.forEach(newRow => {
-        //console.log(`Adding row after '*' replacement: ${JSON.stringify(newRow)}`);
-      });
+      const rowsAfterStarReplacement = expandPlaceholderInColumn(row, 'column5Select', '*');
+
     
       // Replace '+' in column14Select for each row produced in the first iteration
       rowsAfterStarReplacement.forEach(newRow => {
-        const rowsAfterPlusReplacement = replacePlaceholderInColumn(newRow, 'column14Select', '+');
+        const rowsAfterPlusReplacement = expandPlaceholderInColumn(newRow, 'column14Select', '+');
     
-        // Log what is being added for '+' replacement
-        rowsAfterPlusReplacement.forEach(finalRow => {
-          //console.log(`Adding row after '+' replacement: ${JSON.stringify(finalRow)}`);
-        });
-    
-        dataReplaced = dataReplaced.concat(rowsAfterPlusReplacement);
+        const rowsAfterDuplicate = duplicateColumn1And2Switched(rowsAfterPlusReplacement, 'column1Select', 'column2Select')
+
+        dataReplaced = dataReplaced.concat(rowsAfterDuplicate);
       });
+
+
+
     });
     
     //console.log('@@ dataReplaced:', dataReplaced);
