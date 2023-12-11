@@ -1,5 +1,29 @@
 let data; // Declare the data variable
-let subjectsMap;
+let subjectsMap = [];
+var replacedSelectsMap = [];
+var dataReplaced = [];
+
+// Function to replace the placeholder in a specified column
+const replacePlaceholderInColumn = (row, column, placeholder) => {
+  if (row[column] === placeholder) {
+    // Assuming subjectsMap is created during fetchSubjects
+    const subjectList = subjectsMap.get(placeholder).split(',');
+
+    if (subjectList && Array.isArray(subjectList)) {
+      const newRows = [];
+      subjectList.forEach(subject => {
+        const newRow = { ...row, [column]: subject };
+        console.log(`@@ newRow.${column}: ${newRow[column]} for placeholder: ${placeholder}`);
+        newRows.push(newRow);
+      });
+      return newRows;
+    } else {
+      console.error(`Invalid or missing subjectList for "${placeholder}" in column "${column}".`);
+    }
+  }
+  return [row]; // If no replacement needed, return the original row
+};
+
 
 // New function to fetch and parse subjects.json
 async function fetchSubjects() {
@@ -9,6 +33,41 @@ async function fetchSubjects() {
       throw new Error(`Failed to fetch subjects.json. Status: ${response.status}`);
     }
     subjectsMap = new Map((await response.json()).map(item => [item.label, item.subjects]));
+    //subjectsMap = new Map((await response.json()).map(item => [item.label, item.subjects.split(',').map(subject => subject.trim())]));
+    //console.log('@@ subjectsMap:', subjectsMap);
+    const response2 = await fetch('data.json');
+    if (!response2.ok) {
+      throw new Error(`Failed to fetch data.json. Status: ${response.status}`);
+    }
+    data = await response2.json();
+    //console.log('@@ data:', data);
+    
+    // Process data and create dataReplaced
+    let dataReplaced = [];
+    data.forEach(row => {
+      // Replace '*' in column5Select
+      const rowsAfterStarReplacement = replacePlaceholderInColumn(row, 'column5Select', '*');
+      
+      // Log what is being added for '*' replacement
+      rowsAfterStarReplacement.forEach(newRow => {
+        console.log(`Adding row after '*' replacement: ${JSON.stringify(newRow)}`);
+      });
+    
+      // Replace '+' in column14Select for each row produced in the first iteration
+      rowsAfterStarReplacement.forEach(newRow => {
+        const rowsAfterPlusReplacement = replacePlaceholderInColumn(newRow, 'column14Select', '+');
+        
+        // Log what is being added for '+' replacement
+        rowsAfterPlusReplacement.forEach(finalRow => {
+          console.log(`Adding row after '+' replacement: ${JSON.stringify(finalRow)}`);
+        });
+    
+        dataReplaced = dataReplaced.concat(rowsAfterPlusReplacement);
+      });
+    });
+    
+    console.log('@@ dataReplaced:', dataReplaced);
+  
 
   } catch (error) {
     console.error(error);
@@ -16,88 +75,98 @@ async function fetchSubjects() {
 }
 
 
+
 // Updated fetchCourses function
 async function fetchCourses() {
-try {
-await fetchSubjects(); // Fetch subjects first
+  try {
+    
+    await fetchSubjects(); // Fetch subjects first
+/*
+    const response = await fetch('dataReplaced.json');
+    if (!response.ok) {
+      throw new Error(`Failed to fetch dataReplaced.json. Status: ${response.status}`);
+    }
+    data = await response.json();
 
-const response = await fetch('data.json');
-if (!response.ok) {
-  throw new Error(`Failed to fetch data.json. Status: ${response.status}`);
-}
-data = await response.json();
-
-
-// Fetch and populate the School select
-fetchAndPopulateSelect('schoolSelect', data);
-} catch (error) {
-console.error(error);
-}
+    */
+    // Fetch and populate the School select
+    fetchAndPopulateSelect('schoolSelect', dataReplaced);
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 // Updated fetchAndPopulateSelect function
-function fetchAndPopulateSelect(selectId, data) {
+function fetchAndPopulateSelect(selectId, dataReplaced) {
     const select = document.getElementById(selectId);
-
+  
     // Clear existing options
     select.innerHTML = '';
-
+  
     // Create the default option for the school dropdown
     if (selectId === 'schoolSelect') {
-        const defaultOption = document.createElement('option');
-        defaultOption.value = '';
-        defaultOption.text = 'Select...';
-        select.appendChild(defaultOption);
+      const defaultOption = document.createElement('option');
+      defaultOption.value = '';
+      defaultOption.text = 'Select...';
+      select.appendChild(defaultOption);
     }
-    
-    var uniqueValues = [...new Set(data.map(item => item[selectId]))];
-    console.log('uniqueValues:', uniqueValues);
+  
+    const uniqueValues = [...new Set(dataReplaced.map(item => item[selectId]))];
+/*
+    // Check for '*' and replace with subjects from subjectsMap.get('*')
+    if (uniqueValues.includes('*')) {
+      //const replaceVals = subjectsMap.get('*');
+      //uniqueValues = [ ...replaceVals.split(',')];
 
-    if (selectId !== 'schoolSelect') {
-
-        if (uniqueValues.includes('*')) {
-            const replaceVals = subjectsMap.get('*');
-            uniqueValues = [...new Set([...replaceVals.split(','), ...uniqueValues.filter(value => value !== '*')])];
-        }
-        if (uniqueValues.includes('+')) {
-            const replaceVals = subjectsMap.get('+');
-            uniqueValues = [...new Set([...replaceVals.split(','), ...uniqueValues.filter(value => value !== '+')])];
-        }
+      uniqueValues = [...subjectsMap.get('*').split(',')];
+      //console.log('@@ replacedSelectsMap:', replacedSelectsMap);
     }
+  
+    // Check for '+' and replace with subjects from subjectsMap.get('+')
+    if (uniqueValues.includes('+')) {
+      //const replaceVals = subjectsMap.get('+');
+      //uniqueValues = [ ...replaceVals.split(',')];
+      uniqueValues = subjectsMap.get('+');
+
+      //console.log('@@ replacedSelectsMap:', replacedSelectsMap);
+
+    }
+*/
     uniqueValues.forEach(value => {
-            const option = document.createElement('option');
-            option.value = value;
-            option.text = value;
-            select.appendChild(option);
-            
-    
-        if (selectId !== 'schoolSelect') {
-            console.log('@@ uniqueValues after replace:', uniqueValues);
-            const subjects = subjectsMap.get(value);
-            if (subjects) {
-                const subjectsDropdown = createSubjectsDropdown(value, subjects, selectId, select.parentNode);
-                if (subjectsDropdown) {
-                    console.log('subject value:', value);
-                    console.log('select.parentNode:', select.parentNode);
+       console.log('@@ uniqueValues:', value);
 
-                    select.parentNode.appendChild(subjectsDropdown);
-                }
+      const option = document.createElement('option');
+      option.value = value;
+      option.text = value;
+      select.appendChild(option);
 
-            }
-            select.addEventListener('change', () => {
-                const subjectsDropdownId = `${selectId}-${value}-subjects-dropdown`;
-                const subjectsDropdown = document.getElementById(subjectsDropdownId);
-
-                if (subjectsDropdown) {
-                    subjectsDropdown.style.display = select.value === value ? 'inline-block' : 'none';
-                    console.log('Selected Value:', select.value);
-                }
-            });      
-        }
+      // Add subjects dropdown for the value if available
+      if (subjectsMap.get(value)) {
+          const subjectsDropdown = createSubjectsDropdown(value, subjectsMap.get(value), selectId, select.parentNode);
+          if (subjectsDropdown) {
+          select.parentNode.appendChild(subjectsDropdown);
+          }
+      }
     });
-    console.log('done for select: ' + selectId);
-    
-}
+ 
+  
+    // Set up an event listener to hide/show subjects dropdowns based on the selected value
+    select.addEventListener('change', () => {
+      subjectsMap.forEach((_, value) => {
+        const subjectsDropdownId = `${selectId}-${value}-subjects-dropdown`;
+        const subjectsDropdown = document.getElementById(subjectsDropdownId);
+  
+        if (subjectsDropdown) {
+          subjectsDropdown.style.display = select.value === value ? 'inline-block' : 'none';
+          console.log('Selected Value:', select.value);
+        }
+      });
+    });
+    // uniqueValues = [...new Set(dataReplaced.map(item => item[selectId]))];
+    // //console.log('@@ uniqueValues after after replace:', uniqueValues);
+
+  }
+  
 // Updated createSubjectsDropdown function
 function createSubjectsDropdown(value, subjects, selectId, parentNode) {
     const subjectsDropdownId = `${selectId}-${value}-subjects-dropdown`;
@@ -170,7 +239,7 @@ function submitForm() {
   
     const selectedCourses = [];
   
-    for (let i = 1; i <= 1; i++) {
+    for (let i = 1; i <= 14; i++) {
       const selectId = `column${i}Select`;
       const labelId =  `column${i}SelectLabel`;
 
@@ -228,14 +297,15 @@ function submitForm() {
 
 // Function to filter options and update dropdowns
 async function filterOptions(sourceSelectId, targetSelectId) {
-  const sourceSelect = document.getElementById(sourceSelectId);
+  let sourceSelect = document.getElementById(sourceSelectId);
   const targetSelect = document.getElementById(targetSelectId);
 
   // Get the selected value from the source select
-  const selectedValue = sourceSelect.value;
+  let selectedValue = sourceSelect.value;
 
   // Filter the data based on the selected value
-  const filteredData = data.filter(item => item[sourceSelectId] === selectedValue);
+  const filteredData = dataReplaced.filter(item => item[sourceSelectId] === selectedValue);
+
 
   // Repopulate the target select with the first available option
   fetchAndPopulateSelect(targetSelectId, filteredData);

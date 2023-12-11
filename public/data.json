@@ -2,6 +2,22 @@
   {
     "row": "1",
     "schoolSelect": "04Y01",
-    "column1Select": "*"
+    "column1Select": "A",
+    "column2Select": "B",
+    "column3Select": "C",
+    "column4Select": "D",
+    "column5Select": "*",
+    "column6Select": "-",
+    "column7Select": "2",
+    "column8Select": "-",
+    "column9Select": "(2)",
+    "column10Select": "-",
+    "column11Select": "4",
+    "column12Select": "(2)",
+    "column13Select": "4",
+    "column14Select": "+"
   }
+
+
 ]
+  

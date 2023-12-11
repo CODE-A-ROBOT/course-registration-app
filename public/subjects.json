@@ -1,32 +1,23 @@
-[
-    {
-      "label": "Aufgabenfeld II",
-      "subjects": "Politikwissenschaft, Geschichte, Geografie, Sozialwissenschaften, Psychologie, Philosophie, Wirtschaftswissenschaft"
-    },
-    {
-      "label": "*",
-      "subjects": "Fremdsprache, Deutsch"
-    },
-    {
-      "label": "Fremdsprache",
-      "subjects": "Englisch, Französisch, Latein, Italienish"
-    },
-    {
-      "label": "Naturwissenschaft",
-      "subjects": "Physik, Chemie, Biologie"
-    },
-    {
-      "label": "Künstlerisches Fach",
-      "subjects": "Musik, Kunst, Darstellendes Spiel"
-    },
-    {
-      "label": "Sport",
-      "subjects": "Sport-Praxis, Sport-Theorie"
-    },
-    {
-      "label": "+",
-      "subjects": "Deutsch, Debating, Künstl. Werkstatt, Geschichte, Geographie, ErgänzungskursStudium und Beruf, Physik, Ensemblekurs"
-    }
 
-  ]
+    [
+      {
+        "label": "B",
+        "subjects": "B1,B2,B3,B4"
+      },
+      {
+        "label": "C",
+        "subjects": "C1,C2,C3,C4"
+      },
+      {
+        "label": "+",
+        "subjects": "X1,X2"
+      },
+      {
+        "label": "*",
+        "subjects": "C"
+      }
+  
+    ]
+    
+  
   
