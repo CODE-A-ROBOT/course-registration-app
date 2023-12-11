@@ -43,9 +43,9 @@ async function fetchSubjects() {
     //console.log('@@ data:', data);
     
     // Process data and create dataReplaced
-    let dataReplaced = [];
-    data.forEach(row => {
-      // Replace '*' in column5Select
+    //let dataReplaced = [];
+      data.forEach(row => {
+        // Replace '*' in column5Select
       const rowsAfterStarReplacement = replacePlaceholderInColumn(row, 'column5Select', '*');
       
       // Log what is being added for '*' replacement
@@ -56,7 +56,7 @@ async function fetchSubjects() {
       // Replace '+' in column14Select for each row produced in the first iteration
       rowsAfterStarReplacement.forEach(newRow => {
         const rowsAfterPlusReplacement = replacePlaceholderInColumn(newRow, 'column14Select', '+');
-        
+    
         // Log what is being added for '+' replacement
         rowsAfterPlusReplacement.forEach(finalRow => {
           console.log(`Adding row after '+' replacement: ${JSON.stringify(finalRow)}`);
@@ -98,6 +98,8 @@ async function fetchCourses() {
 
 // Updated fetchAndPopulateSelect function
 function fetchAndPopulateSelect(selectId, dataReplaced) {
+  console.log('fetchAndPopulateSelect:  dataReplaced:', dataReplaced);
+
     const select = document.getElementById(selectId);
   
     // Clear existing options
@@ -133,8 +135,6 @@ function fetchAndPopulateSelect(selectId, dataReplaced) {
     }
 */
     uniqueValues.forEach(value => {
-       console.log('@@ uniqueValues:', value);
-
       const option = document.createElement('option');
       option.value = value;
       option.text = value;
@@ -305,6 +305,12 @@ async function filterOptions(sourceSelectId, targetSelectId) {
 
   // Filter the data based on the selected value
   const filteredData = dataReplaced.filter(item => item[sourceSelectId] === selectedValue);
+
+
+  if (selectedValue === 'columnSelect3')  {
+    //console.log(`Label ID for ${subjectsSelectId}: ${subjectsLabelId}`);
+
+  }
 
 
   // Repopulate the target select with the first available option
