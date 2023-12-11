@@ -1,5 +1,15 @@
 <!-- Display labels, element IDs, and selected values in a list -->
-<h2>Selected Courses Summary</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Übersichtsplan</title>
+  <link rel="stylesheet" href="styles.css"> <!-- Link to external styles.css file -->
+</head>
+<body>
+  
+  <h2>Übersichtsplan</h2>
 <ul id="selectedCoursesList"></ul>
 
 <script>
@@ -9,24 +19,30 @@
   // Retrieve the selected courses from the URL parameter
   const urlParams = new URLSearchParams(window.location.search);
   const selectedCoursesJSON = urlParams.get('selectedCourses');
+  console.log(selectedCoursesJSON);
   const selectedCourses = JSON.parse(decodeURIComponent(selectedCoursesJSON));
 
-  // Display the selected courses in a list
+  // Display the selected courses in a list with three columns
   const selectedCoursesList = document.getElementById('selectedCoursesList');
-  selectedCourses.forEach(course => {
-    for (const label in course) {
-      const values = course[label].split('\n').filter(Boolean); // Split values by newline and filter out empty strings
-      values.forEach((value, index) => {
-        const listItem = document.createElement('li');
-        if (index === 0) {
-          listItem.textContent = `${label}: ${value}`;
-        } else {
-          listItem.textContent = value;
-        }
-        selectedCoursesList.appendChild(listItem);
-      });
-    }
+
+  selectedCourses.forEach(courseGroup => {
+    courseGroup.forEach(course => {
+      const listItem = document.createElement('li');
+
+      listItem.innerHTML = `
+        <span class="column">${course.label}</span>
+        <span class="column">${course.value}</span>
+        <span class="column">${course.patern}</span>
+        <span class="column">${course.quarter}</span>
+      `;
+
+      selectedCoursesList.appendChild(listItem);
+    });
   });
 }
 
+
+
 </script>
+</body>
+</html>

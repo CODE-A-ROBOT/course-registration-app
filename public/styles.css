@@ -4,3 +4,14 @@
 .hidden {
     display: none;
 }
+
+#selectedCoursesList li {
+    display: flex;
+}
+
+#selectedCoursesList span.column {
+    flex: 1;
+    padding: 5px; /* Adjust padding as needed */
+    box-sizing: border-box;
+}
+  

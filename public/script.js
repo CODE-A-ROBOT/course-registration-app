@@ -13,7 +13,7 @@ const replacePlaceholderInColumn = (row, column, placeholder) => {
       const newRows = [];
       subjectList.forEach(subject => {
         const newRow = { ...row, [column]: subject };
-        console.log(`@@ newRow.${column}: ${newRow[column]} for placeholder: ${placeholder}`);
+        //console.log(`@@ newRow.${column}: ${newRow[column]} for placeholder: ${placeholder}`);
         newRows.push(newRow);
       });
       return newRows;
@@ -50,7 +50,7 @@ async function fetchSubjects() {
       
       // Log what is being added for '*' replacement
       rowsAfterStarReplacement.forEach(newRow => {
-        console.log(`Adding row after '*' replacement: ${JSON.stringify(newRow)}`);
+        //console.log(`Adding row after '*' replacement: ${JSON.stringify(newRow)}`);
       });
     
       // Replace '+' in column14Select for each row produced in the first iteration
@@ -59,14 +59,14 @@ async function fetchSubjects() {
     
         // Log what is being added for '+' replacement
         rowsAfterPlusReplacement.forEach(finalRow => {
-          console.log(`Adding row after '+' replacement: ${JSON.stringify(finalRow)}`);
+          //console.log(`Adding row after '+' replacement: ${JSON.stringify(finalRow)}`);
         });
     
         dataReplaced = dataReplaced.concat(rowsAfterPlusReplacement);
       });
     });
     
-    console.log('@@ dataReplaced:', dataReplaced);
+    //console.log('@@ dataReplaced:', dataReplaced);
   
 
   } catch (error) {
@@ -98,7 +98,7 @@ async function fetchCourses() {
 
 // Updated fetchAndPopulateSelect function
 function fetchAndPopulateSelect(selectId, dataReplaced) {
-  console.log('fetchAndPopulateSelect:  dataReplaced:', dataReplaced);
+    //console.log('fetchAndPopulateSelect:  dataReplaced:', dataReplaced);
 
     const select = document.getElementById(selectId);
   
@@ -121,13 +121,11 @@ function fetchAndPopulateSelect(selectId, dataReplaced) {
         option.text = value;
         select.appendChild(option);
       
-
-
       // Add subjects dropdown for the value if available
       if (subjectsMap.get(value)) {
           const subjectsDropdown = createSubjectsDropdown(value, subjectsMap.get(value), selectId, select.parentNode);
           if (subjectsDropdown) {
-          select.parentNode.appendChild(subjectsDropdown);
+            select.parentNode.appendChild(subjectsDropdown);
           }
       }
     });
@@ -143,7 +141,7 @@ function fetchAndPopulateSelect(selectId, dataReplaced) {
   
         if (subjectsDropdown) {
           subjectsDropdown.style.display = select.value === value ? 'inline-block' : 'none';
-          console.log('Selected Value:', select.value);
+          //console.log('Selected Value:', select.value);
         }
       });
     });
@@ -182,14 +180,14 @@ function createSubjectsDropdown(value, subjects, selectId, parentNode) {
     // Add subject dropdowns to the subjects dropdown if the subject is again in subjectsMap
     subjects.split(',').forEach(subject => {
       const subjectValue = subject.trim();
-      console.log('createSubjectsDropdown subjectValue: ' + subjectValue);
+      //console.log('createSubjectsDropdown subjectValue: ' + subjectValue);
       if (subjectsMap.has(subjectValue)) {
-        console.log('subjectsMap.has(subjectValue): ' + subjectValue);
+        //console.log('subjectsMap.has(subjectValue): ' + subjectValue);
   
         const nestedSubjectsDropdown = createSubjectsDropdown(subjectValue, subjectsMap.get(subjectValue), subjectsDropdownId, parentNode);
         if (nestedSubjectsDropdown) {
-          console.log('subjectsDropdown:', subjectsDropdown);
-          console.log('parentNode:', parentNode);
+          //console.log('subjectsDropdown:', subjectsDropdown);
+          //console.log('parentNode:', parentNode);
   
           parentNode.appendChild(nestedSubjectsDropdown);
         }
@@ -204,7 +202,7 @@ function createSubjectsDropdown(value, subjects, selectId, parentNode) {
   
         if (nestedSubjectsDropdown) {
           nestedSubjectsDropdown.style.display = subjectsDropdown.value === value ? 'inline-block' : 'none';
-          console.log('Selected Value:', subjectsDropdown.value);
+          //console.log('Selected Value:', subjectsDropdown.value);
         }
       });
     });
@@ -226,37 +224,104 @@ function submitForm() {
     const selectedCourses = [];
   
     const quarters = 4; // Move quarters outside the loop if it remains constant
-    const multiFieldSelection = {};
+    const multiFieldSelection = [];
     
-    for (let i = 1; i <= 14; i++) {
-      const selectId = `column${i}Select`;
-      const labelId =  `column${i}SelectLabel`;
+    let count = 0;
+
+      for (let i = 1; i <= 14; i++) {
+        const selectId = `column${i}Select`;
+        const labelId = `column${i}SelectLabel`;
     
-      const selectedValue = document.getElementById(selectId).value;
-      const labelValue = document.getElementById(labelId).innerText.trim();
+        const selectedValue = document.getElementById(selectId).value;
+        const labelValue = document.getElementById(labelId).innerText.trim();
     
-      const factor = (i < 3) ? 5 : 3;
+        if (i === 14) {
+          // Special handling for the 14th iteration with a multi-select element
+          const selectedOptions = Array.from(document.getElementById(selectId).selectedOptions).map(option => option.value);
+          selectedOptions.forEach(option => {
+            multiFieldSelection.push({
+              label: labelValue,
+              value: `${option}`,
+              patern: displayXPattern(quarters),
+              quarter: quarters
+            });
+            count = count + quarters;
+            console.log(`1label: ${labelValue}, value: ${option}, quarter: ${quarters}`);
+          });
+        } else if (subjectsMap.has(selectedValue)) {
+          const subjectsSelectId = `${selectId}-${selectedValue}-subjects-dropdown`;
+          const subjectsLabelId = `${selectId}-${selectedValue}-label`;
     
-      if (i === 14) {
-        // Special handling for the 14th iteration with a multi-select element
-        const selectedOptions = Array.from(document.getElementById(selectId).selectedOptions).map(option => option.value);
-        multiFieldSelection[labelValue] = selectedOptions.map(option => `${labelValue} ${option} ${quarters}`).join('\n');
-      } 
-      else if (subjectsMap.has(selectedValue)) {
-        const subjectsSelectId = `${selectId}-${selectedValue}-subjects-dropdown`;
-        const subjectsLabelId = `${selectId}-${selectedValue}-label`;
+          const subjectsLabelValue = document.getElementById(subjectsLabelId)?.innerText.trim();
+          const subjectsSelectedValue = document.getElementById(subjectsSelectId).value;
     
-        const subjectsLabelValue = document.getElementById(subjectsLabelId)?.innerText.trim();
-        const subjectsSelectedValue = document.getElementById(subjectsSelectId).value;
-    
-        if (subjectsSelectedValue) {
-          multiFieldSelection[labelValue] = `${selectedValue}: ${subjectsSelectedValue}\t${quarters}`;
+          if (subjectsSelectedValue) {
+            multiFieldSelection.push({
+              label: labelValue,
+              value: `${selectedValue}: ${subjectsSelectedValue}`,
+              patern: displayXPattern(quarters),
+              quarter: quarters
+            });
+            count = count + quarters;
+
+            console.log(`2label: ${labelValue}, value: ${selectedValue}: ${subjectsSelectedValue}, patern: ${displayXPattern(quarters)}, quarter: ${quarters}`);
+
+          }
+        } else {
+          if (selectedValue.length > 3) {
+            //is course
+            multiFieldSelection.push({
+              label: labelValue,
+              value: selectedValue,
+              patern: displayXPattern(quarters),
+              quarter: quarters
+            });
+            count = count + quarters;
+
+            console.log(`3label: ${labelValue}, value: ${selectedValue}, quarter: ${quarters}`);
+
+          }
+          else {
+            // is hours
+            const parsedCnt = parseValue(selectedValue);
+            console.log(`parsedCnt: ${parsedCnt}`);
+
+
+            multiFieldSelection.push({
+              label: labelValue,
+              value: '',
+              patern: displayXPattern(parsedCnt),
+              quarter: selectedValue
+            });
+
+
+
+            count = count + parsedCnt;
+
+            console.log(`4label: ${labelValue}, value: '', quarter: ${selectedValue}`);
+          }
         }
-      } else {
-        multiFieldSelection[labelValue] = `${selectedValue}\t${quarters}`;
-      }
+
+
+    
+      // Assuming you have a textarea with id 'selectedCoursesTextarea'
+      //const textarea = document.getElementById('selectedCoursesTextarea');
+      //textarea.value = JSON.stringify(multiFieldSelection, null, 2);
+      
+      // Additional code for submitting the form if needed
+      // document.forms["yourFormName"].submit();
     }
     
+
+    console.log(`count: ${count}`);
+    multiFieldSelection.push({
+      label: 'Total',
+      value: '',
+      patern: displayXPattern(''),
+      quarter: count
+    });
+
+
     // Push the accumulated values into the selectedCourses array
     selectedCourses.push(multiFieldSelection);
     
@@ -274,9 +339,22 @@ function submitForm() {
       console.error('Failed to open summary window');
     }
   }
-  
-  
-  
+
+  function parseValue(selectedValue) {
+    const valueWithoutParentheses = selectedValue.replace(/[()]/g, ''); // Remove parentheses
+    return isNaN(valueWithoutParentheses) ? 0 : parseFloat(valueWithoutParentheses);
+  }
+
+  function displayXPattern(value) {
+    if (value === 4) {
+      return 'X     X     X     X';
+    } else if (value === 2) {
+      return 'X     X                  ';
+    } else {
+      return '                         ';
+    }
+  }
+
 
 // Function to filter options and update dropdowns
 async function filterOptions(sourceSelectId, targetSelectId) {
