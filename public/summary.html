@@ -6,19 +6,27 @@
   document.addEventListener('DOMContentLoaded', displaySummary);
 
   function displaySummary() {
-    // Retrieve the selected courses from the URL parameter
-    const urlParams = new URLSearchParams(window.location.search);
-    const selectedCoursesJSON = urlParams.get('selectedCourses');
-    const selectedCourses = JSON.parse(decodeURIComponent(selectedCoursesJSON));
+  // Retrieve the selected courses from the URL parameter
+  const urlParams = new URLSearchParams(window.location.search);
+  const selectedCoursesJSON = urlParams.get('selectedCourses');
+  const selectedCourses = JSON.parse(decodeURIComponent(selectedCoursesJSON));
 
-    // Display the selected courses in a list
-    const selectedCoursesList = document.getElementById('selectedCoursesList');
-    selectedCourses.forEach(course => {
-      for (const label in course) {
+  // Display the selected courses in a list
+  const selectedCoursesList = document.getElementById('selectedCoursesList');
+  selectedCourses.forEach(course => {
+    for (const label in course) {
+      const values = course[label].split('\n').filter(Boolean); // Split values by newline and filter out empty strings
+      values.forEach((value, index) => {
         const listItem = document.createElement('li');
-        listItem.innerHTML = `${label}: ${course[label]}<br>`;
+        if (index === 0) {
+          listItem.textContent = `${label}: ${value}`;
+        } else {
+          listItem.textContent = value;
+        }
         selectedCoursesList.appendChild(listItem);
-      }
-    });
-  }
+      });
+    }
+  });
+}
+
 </script>

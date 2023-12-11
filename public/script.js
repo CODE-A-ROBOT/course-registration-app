@@ -114,31 +114,14 @@ function fetchAndPopulateSelect(selectId, dataReplaced) {
     }
   
     const uniqueValues = [...new Set(dataReplaced.map(item => item[selectId]))];
-/*
-    // Check for '*' and replace with subjects from subjectsMap.get('*')
-    if (uniqueValues.includes('*')) {
-      //const replaceVals = subjectsMap.get('*');
-      //uniqueValues = [ ...replaceVals.split(',')];
 
-      uniqueValues = [...subjectsMap.get('*').split(',')];
-      //console.log('@@ replacedSelectsMap:', replacedSelectsMap);
-    }
-  
-    // Check for '+' and replace with subjects from subjectsMap.get('+')
-    if (uniqueValues.includes('+')) {
-      //const replaceVals = subjectsMap.get('+');
-      //uniqueValues = [ ...replaceVals.split(',')];
-      uniqueValues = subjectsMap.get('+');
-
-      //console.log('@@ replacedSelectsMap:', replacedSelectsMap);
-
-    }
-*/
     uniqueValues.forEach(value => {
-      const option = document.createElement('option');
-      option.value = value;
-      option.text = value;
-      select.appendChild(option);
+        const option = document.createElement('option');
+        option.value = value;
+        option.text = value;
+        select.appendChild(option);
+      
+
 
       // Add subjects dropdown for the value if available
       if (subjectsMap.get(value)) {
@@ -148,7 +131,9 @@ function fetchAndPopulateSelect(selectId, dataReplaced) {
           }
       }
     });
- 
+    if (selectId === 'column14Select') {
+      column14Select.size = column14Select.options.length;
+    }
   
     // Set up an event listener to hide/show subjects dropdowns based on the selected value
     select.addEventListener('change', () => {
@@ -191,6 +176,7 @@ function createSubjectsDropdown(value, subjects, selectId, parentNode) {
     const label = document.createElement('label');
     label.id = labelId;
     label.innerText = `${value}: `;
+    label.style.display = 'none'; // Initially hide the subjects dropdown
     parentNode.appendChild(label);
   
     // Add subject dropdowns to the subjects dropdown if the subject is again in subjectsMap
@@ -239,44 +225,41 @@ function submitForm() {
   
     const selectedCourses = [];
   
+    const quarters = 4; // Move quarters outside the loop if it remains constant
+    const multiFieldSelection = {};
+    
     for (let i = 1; i <= 14; i++) {
       const selectId = `column${i}Select`;
       const labelId =  `column${i}SelectLabel`;
-
+    
       const selectedValue = document.getElementById(selectId).value;
       const labelValue = document.getElementById(labelId).innerText.trim();
-  
-      console.log(`Selected value for ${labelId}: ${selectedValue}`);
-      //console.log(`Label value for ${labelId}-label: ${labelValue}`);
-  
-      //selectedCourses.push({ [labelValue]: selectedValue });
-  
-      if (subjectsMap.has(selectedValue)) {
+    
+      const factor = (i < 3) ? 5 : 3;
+    
+      if (i === 14) {
+        // Special handling for the 14th iteration with a multi-select element
+        const selectedOptions = Array.from(document.getElementById(selectId).selectedOptions).map(option => option.value);
+        multiFieldSelection[labelValue] = selectedOptions.map(option => `${labelValue} ${option} ${quarters}`).join('\n');
+      } 
+      else if (subjectsMap.has(selectedValue)) {
         const subjectsSelectId = `${selectId}-${selectedValue}-subjects-dropdown`;
         const subjectsLabelId = `${selectId}-${selectedValue}-label`;
-  
-        console.log(`Selected value for ${subjectsSelectId}: ${document.getElementById(subjectsSelectId).value}`);
-  
-        // Additional debug message for subjectsLabelId
-        //console.log(`Label ID for ${subjectsSelectId}: ${subjectsLabelId}`);
-  
+    
         const subjectsLabelValue = document.getElementById(subjectsLabelId)?.innerText.trim();
-  
-        // Additional debug message for subjectsLabelValue
-        //console.log(`Label value for ${subjectsLabelId}: ${subjectsLabelValue}`);
-  
         const subjectsSelectedValue = document.getElementById(subjectsSelectId).value;
-  
+    
         if (subjectsSelectedValue) {
-            //selectedCourses.push({ [subjectsLabelValue]: subjectsSelectedValue });
-            selectedCourses.push({ [labelValue]: selectedValue + ': '+ subjectsSelectedValue });
+          multiFieldSelection[labelValue] = `${selectedValue}: ${subjectsSelectedValue}\t${quarters}`;
         }
-      }
-      else {
-        selectedCourses.push({ [labelValue]: selectedValue });
-
+      } else {
+        multiFieldSelection[labelValue] = `${selectedValue}\t${quarters}`;
       }
     }
+    
+    // Push the accumulated values into the selectedCourses array
+    selectedCourses.push(multiFieldSelection);
+    
     
     const selectedCoursesJSON = JSON.stringify(selectedCourses);
 

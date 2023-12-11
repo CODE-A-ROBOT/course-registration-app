@@ -1,3 +1,6 @@
 .course-selection-hidden {
     display: inline-block;
 }
+.hidden {
+    display: none;
+}
