@@ -1,5 +1,7 @@
 let data; // Declare the data variable
-let subjectsMap = [];
+var subjectsMap = [];
+var groupsMap = [];
+var reverseGroupsMap = new Map();
 var replacedSelectsMap = [];
 var dataReplaced = [];
 
@@ -37,6 +39,27 @@ const duplicateColumn1And2Switched = (rows, column1Select, column2Select) => {
   return newRows;
 }
 
+// Function to createSubjectsDropdown, replace this with your actual implementation
+function createSubjectsDropdownLabel(labelId, label) {
+  const subjectsDropdown = document.createElement('select');
+  const subjectsDropdownId = `${labelId}-dropdown`;
+
+  subjectsDropdown.id = subjectsDropdownId;
+
+  // Customize the subjectsDropdown as needed
+
+  // For example, adding options:
+  const subjects = subjectsMap.get(label).split(',');
+  subjects.forEach(subject => {
+    const option = document.createElement('option');
+    option.value = subject;
+    option.textContent = subject;
+    subjectsDropdown.appendChild(option);
+  });
+
+  return subjectsDropdown;
+}
+
 // New function to fetch and parse subjects.json
 async function fetchSubjects() {
   try {
@@ -45,11 +68,48 @@ async function fetchSubjects() {
       throw new Error(`Failed to fetch subjects.json. Status: ${response.status}`);
     }
     subjectsMap = new Map((await response.json()).map(item => [item.label, item.subjects]));
-    //subjectsMap = new Map((await response.json()).map(item => [item.label, item.subjects.split(',').map(subject => subject.trim())]));
-    //console.log('@@ subjectsMap:', subjectsMap);
+
+
+    // Iterate through all labels
+    for (let i = 1; i <= 14; i++) {
+      const labelId = `column${i}SelectLabel`;
+      const labelValue = document.getElementById(labelId)?.innerText.trim();
+
+      if (labelValue && subjectsMap.has(labelValue)) {
+        // If the label is in subjectsMap, createSubjectsDropdown for label
+        const subjectsDropdown = createSubjectsDropdownLabel(labelId, labelValue);
+        // Append the subjectsDropdown to the appropriate container in your HTML
+        // For example, if you have a container with id 'subjectsDropdownContainer':
+        const container = document.getElementById(labelId).parentNode;
+        container.appendChild(subjectsDropdown);
+      }
+    }
+
+
+    const response1 = await fetch('groups.json');
+    if (!response1.ok) {
+      throw new Error(`Failed to fetch groups.json. Status: ${response1.status}`);
+    }
+    groupsMap = new Map((await response1.json()).map(item => [item.group, item.subjects]));
+    // Create a reverseGroupMap
+    //reverseGroupMap = new Map();
+
+    // Iterate over each entry in groupsMap
+    groupsMap.forEach((subjects, group) => {
+      // Split subjects string into an array
+      const subjectsArray = subjects.split(', ');
+
+      // Iterate over subjects and add reverse mapping to the reverseGroupMap
+      subjectsArray.forEach(subject => {
+        reverseGroupsMap.set(subject, group);
+      });
+    });
+
+    console.log(reverseGroupsMap);
+
     const response2 = await fetch('data.json');
     if (!response2.ok) {
-      throw new Error(`Failed to fetch data.json. Status: ${response.status}`);
+      throw new Error(`Failed to fetch data.json. Status: ${response2.status}`);
     }
     data = await response2.json();
     //console.log('@@ data:', data);
@@ -89,14 +149,7 @@ async function fetchCourses() {
   try {
     
     await fetchSubjects(); // Fetch subjects first
-/*
-    const response = await fetch('dataReplaced.json');
-    if (!response.ok) {
-      throw new Error(`Failed to fetch dataReplaced.json. Status: ${response.status}`);
-    }
-    data = await response.json();
 
-    */
     // Fetch and populate the School select
     fetchAndPopulateSelect('schoolSelect', dataReplaced);
   } catch (error) {
@@ -239,23 +292,34 @@ function submitForm() {
       for (let i = 1; i <= 14; i++) {
         const selectId = `column${i}Select`;
         const labelId = `column${i}SelectLabel`;
-    
+        const subjectsDropdownId = `${labelId}-dropdown`;
+
         const selectedValue = document.getElementById(selectId).value;
         const labelValue = document.getElementById(labelId).innerText.trim();
+        const labelText = document.getElementById(labelId).textContent;
     
         if (i === 14) {
           // Addtitional courses
           // Special handling for the 14th iteration with a multi-select element
           const selectedOptions = Array.from(document.getElementById(selectId).selectedOptions).map(option => option.value);
+
           selectedOptions.forEach(option => {
+            option = option.trim();
+
+            group1 = reverseGroupsMap.get(option);
+            if (! group1) {
+              console.log('group1 for: ' + option + ': ' + group1);
+            }
+
             multiFieldSelection.push({
               label: '',
+              group: `${reverseGroupsMap.get(option)}`,
               value: `${labelValue} ${option}`,
               patern: displayXPattern(quarters),
               quarter: quarters
             });
             count = count + quarters;
-            console.log(`1label: '', value: ${labelValue} + ' ' + ${option}, quarter: ${quarters}`);
+            console.log(`1group: ${reverseGroupsMap.get(option)}, label: '', value: ${labelValue} + ' ' + ${option}, quarter: ${quarters}`);
           });
         } else if (subjectsMap.has(selectedValue)) {
           const subjectsSelectId = `${selectId}-${selectedValue}-subjects-dropdown`;
@@ -263,17 +327,21 @@ function submitForm() {
     
           const subjectsLabelValue = document.getElementById(subjectsLabelId)?.innerText.trim();
           const subjectsSelectedValue = document.getElementById(subjectsSelectId).value;
-    
+          let group2 = reverseGroupsMap.get(selectedValue);
+          if (! group2) {
+             group2 = reverseGroupsMap.get(subjectsLabelValue);
+          }
           if (subjectsSelectedValue) {
             multiFieldSelection.push({
               label: labelValue,
-              value: `${selectedValue}: ${subjectsSelectedValue}`,
+              group: `${group2}`,
+              value: `${subjectsSelectedValue}`,
               patern: displayXPattern(quarters),
               quarter: quarters
             });
             count = count + quarters;
 
-            console.log(`2label: ${labelValue}, value: ${selectedValue}: ${subjectsSelectedValue}, patern: ${displayXPattern(quarters)}, quarter: ${quarters}`);
+            console.log(`2group: ${group2}, label: ${labelValue}, value: ${subjectsSelectedValue}, patern: ${displayXPattern(quarters)}, quarter: ${quarters}`);
 
           }
         } else {
@@ -281,13 +349,14 @@ function submitForm() {
             //is course
             multiFieldSelection.push({
               label: labelValue,
+              group: `${reverseGroupsMap.get(selectedValue)}`,
               value: selectedValue,
               patern: displayXPattern(quarters),
               quarter: quarters
             });
             count = count + quarters;
 
-            console.log(`3label: ${labelValue}, value: ${selectedValue}, quarter: ${quarters}`);
+            console.log(`3group: ${reverseGroupsMap.get(selectedValue)}, label: ${labelValue}, value: ${selectedValue}, quarter: ${quarters}`);
 
           }
           else {
@@ -296,10 +365,27 @@ function submitForm() {
             const parsedCnt = parseValue(selectedValue);
             console.log(`parsedCnt: ${parsedCnt}`);
 
+            //const origLabelValue = document.getElementById(labelId).value;
+            //const labelValue = document.getElementById(labelId).innerText.trim();
 
+            const labelSelect = document.getElementById(subjectsDropdownId);
+            const labelSelectValue = (labelSelect) ? labelSelect.value : labelText;
+
+            //console.log('444: labelValue : ' + labelValue);
+            //console.log('444: labelSelectValue: ' + labelSelectValue);
+
+            let group4 = reverseGroupsMap.get(labelText);
+            console.log('group4 for: ' + labelText + ': ' + group4);
+
+            if (! group4) {
+               group4 = reverseGroupsMap.get(labelSelectValue);
+               console.log('group4 for: ' + labelSelectValue + ': ' + group4);
+            }
+   
             multiFieldSelection.push({
               label: '',
-              value: '' + labelValue,
+              group: `${group4}`,
+              value: '' + labelSelectValue,
               patern: displayXPattern(parsedCnt),
               quarter: selectedValue
             });
@@ -308,7 +394,7 @@ function submitForm() {
 
             count = count + parsedCnt;
 
-            console.log(`value: ${labelValue}, label: '', quarter: ${selectedValue}`);
+            console.log(`4group: ${group4}, label: '', value: ${labelSelectValue}, quarter: ${selectedValue}`);
           }
         }
 
@@ -326,9 +412,10 @@ function submitForm() {
     console.log(`count: ${count}`);
     multiFieldSelection.push({
       label: '',
+      group: 'Total',
       value: '',
       patern: displayXPattern(''),
-      quarter: 'Total: '+ count
+      quarter: count
     });
 
 

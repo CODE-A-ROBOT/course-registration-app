@@ -3,6 +3,7 @@
     "label": "Aufgabenfeld II",
     "subjects": "Politikwissenschaft, Geschichte, Geografie, Sozialwissenschaften, Psychologie, Philosophie, Wirtschaftswissenschaft"
   },
+
   {
     "label": "*",
     "subjects": "Fremdsprache, Deutsch"
@@ -25,6 +26,19 @@
   },
   {
     "label": "+",
-    "subjects": "Deutsch, Debating, Künstl. Werkstatt, Geschichte, Geographie, ErgänzungskursStudium und Beruf, Physik, Ensemblekurs"
+    "subjects": "Deutsch, Debating, Künstl. Werkstatt, Geschichte, Geographie, Ergänzungskurs Studium und Beruf, Physik, Ensemblekurs"
+  },
+  {
+    "label": "Geschichte/Politikwissenschaft",
+    "subjects": "Geschichte,Politikwissenschaft"
+  },
+  {
+    "label": "Geschichte/Politikwissenschaft",
+    "subjects": "Geschichte,Politikwissenschaft"
+  },
+  {
+    "label": "Physik/Chemie",
+    "subjects": "Physik, Chemie"
   }
+
 ]

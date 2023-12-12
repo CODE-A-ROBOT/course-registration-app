@@ -13,33 +13,70 @@
 <ul id="selectedCoursesList"></ul>
 
 <script>
+  let groupsMap = [];
+
+  async function fetchGroups() {
+    try {
+      const response1 = await fetch('groups.json');
+      if (!response1.ok) {
+        throw new Error(`Failed to fetch groups.json. Status: ${response1.status}`);
+      }
+      groupsMap = new Map((await response1.json()).map(item => [item.group, item.subjects]));
+    }
+    catch (error) {
+      console.error(error);
+    }
+  }
+
   document.addEventListener('DOMContentLoaded', displaySummary);
 
-  function displaySummary() {
-  // Retrieve the selected courses from the URL parameter
-  const urlParams = new URLSearchParams(window.location.search);
-  const selectedCoursesJSON = urlParams.get('selectedCourses');
-  console.log(selectedCoursesJSON);
-  const selectedCourses = JSON.parse(decodeURIComponent(selectedCoursesJSON));
+  async function displaySummary() {
+    await fetchGroups();
 
-  // Display the selected courses in a list with three columns
-  const selectedCoursesList = document.getElementById('selectedCoursesList');
+    // Retrieve the selected courses from the URL parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedCoursesJSON = urlParams.get('selectedCourses');
+    console.log(selectedCoursesJSON);
+    const selectedCourses = JSON.parse(decodeURIComponent(selectedCoursesJSON));
 
-  selectedCourses.forEach(courseGroup => {
-    courseGroup.forEach(course => {
-      const listItem = document.createElement('li');
+    // Display the selected courses in a list with three columns
+    const selectedCoursesList = document.getElementById('selectedCoursesList');
 
-      listItem.innerHTML = `
-      <span class="column">${course.value}</span>
-        <span class="column">${course.label}</span>
-        <span class="column">${course.patern}</span>
-        <span class="column">${course.quarter}</span>
-      `;
+    groupsMap.forEach((_, group) => {
+      console.log('Group: ' + group);
+      //selectedCoursesList.appendChild('<br/><div>${group}</div>');
+      selectedCoursesList.appendChild(document.createElement('br'));
 
-      selectedCoursesList.appendChild(listItem);
-    });
-  });
-}
+      const newDiv = document.createElement('div');
+      //newDiv.textContent = group; // Set the text content of the div to the value of the group variable
+      newDiv.innerHTML = `<h3><strong>${group}</strong></h3>`;
+
+      // Append the new div element to the selectedCoursesList
+      selectedCoursesList.appendChild(newDiv);
+
+      // Optionally, add a line break after each div
+
+        selectedCourses.forEach(courses => {
+          courses.forEach(course => {
+
+            if (course.group === group && course.quarter !='-') {
+
+              const listItem = document.createElement('li');
+
+              listItem.innerHTML = `
+              <span class="column">${course.value}</span>
+                <span class="column">${course.label}</span>
+                <span class="column">${course.patern}</span>
+                <span class="column">${course.quarter}</span>
+              `;
+
+              selectedCoursesList.appendChild(listItem);
+            }
+          });
+        });
+      });
+    
+  }
 
 
 

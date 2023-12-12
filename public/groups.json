@@ -1,0 +1,22 @@
+[
+    {
+      "group": "Aufgabenfeld I",
+      "subjects": "Deutsch, Debating, Fremdsprache, Künstlerisches Fach"
+    },
+    {
+      "group": "Aufgabenfeld II",
+      "subjects": "Politikwissenschaft, Geschichte, Geografie, Philosophie, Wirtschaftswissenschaft, Aufgabenfeld II"
+    },
+    {
+      "group": "Aufgabenfeld III",
+      "subjects": "Mathematik, Physik, Chemie, Biologie, Informatik"
+    },
+    {
+      "group": "Weitere Fächer",
+      "subjects": "Sport-Praxis, Sport-Theorie"
+    },
+    {
+      "group": "Total",
+      "subjects": "Total"
+    }
+  ]
