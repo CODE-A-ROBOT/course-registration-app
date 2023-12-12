@@ -244,17 +244,18 @@ function submitForm() {
         const labelValue = document.getElementById(labelId).innerText.trim();
     
         if (i === 14) {
+          // Addtitional courses
           // Special handling for the 14th iteration with a multi-select element
           const selectedOptions = Array.from(document.getElementById(selectId).selectedOptions).map(option => option.value);
           selectedOptions.forEach(option => {
             multiFieldSelection.push({
-              label: labelValue,
-              value: `${option}`,
+              label: '',
+              value: `${labelValue} ${option}`,
               patern: displayXPattern(quarters),
               quarter: quarters
             });
             count = count + quarters;
-            console.log(`1label: ${labelValue}, value: ${option}, quarter: ${quarters}`);
+            console.log(`1label: '', value: ${labelValue} + ' ' + ${option}, quarter: ${quarters}`);
           });
         } else if (subjectsMap.has(selectedValue)) {
           const subjectsSelectId = `${selectId}-${selectedValue}-subjects-dropdown`;
@@ -290,14 +291,15 @@ function submitForm() {
 
           }
           else {
+            // Courses Count
             // is hours
             const parsedCnt = parseValue(selectedValue);
             console.log(`parsedCnt: ${parsedCnt}`);
 
 
             multiFieldSelection.push({
-              label: labelValue,
-              value: '',
+              label: '',
+              value: '' + labelValue,
               patern: displayXPattern(parsedCnt),
               quarter: selectedValue
             });
@@ -306,7 +308,7 @@ function submitForm() {
 
             count = count + parsedCnt;
 
-            console.log(`4label: ${labelValue}, value: '', quarter: ${selectedValue}`);
+            console.log(`value: ${labelValue}, label: '', quarter: ${selectedValue}`);
           }
         }
 
@@ -323,10 +325,10 @@ function submitForm() {
 
     console.log(`count: ${count}`);
     multiFieldSelection.push({
-      label: 'Total',
+      label: '',
       value: '',
       patern: displayXPattern(''),
-      quarter: count
+      quarter: 'Total: '+ count
     });
 
 
