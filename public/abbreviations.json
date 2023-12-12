@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Leistungskursfach",
+        "abbreviation": "LF"
+      },
+      {
+        "name": "Prüfungsfach",
+        "abbreviation": "PF"
+      },
+      {
+        "name": "Referenzfach",
+        "abbreviation": "RF"
+      }
+]

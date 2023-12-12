@@ -27,11 +27,43 @@
       console.error(error);
     }
   }
+  let abbreviationsMap = [];
+
+  async function fetchAbbreviations() {
+    try {
+      const response1 = await fetch('abbreviations.json');
+      if (!response1.ok) {
+        throw new Error(`Failed to fetch abbreviations.json. Status: ${response1.status}`);
+      }
+      abbreviationsMap = new Map((await response1.json()).map(item => [item.name, item.abbreviation]));
+    }
+    catch (error) {
+      console.error(error);
+    }
+  }
+
+
+  function replaceWithAbbreviation(name) {
+    console.log('replaceWithAbbreviation: abbreviationsMap: ' + abbreviationsMap);
+
+    for (const [original, abbreviation] of abbreviationsMap.entries()) {
+      console.log('replaceWithAbbreviation: original: ' + original + ' => ' + abbreviation);
+      // Use a regular expression to match and replace the original part with the abbreviation
+      const regex = new RegExp(original, 'g');
+      console.log('replaceWithAbbreviation: name: ' + name + ' => ' + name.replace(regex, abbreviation));
+
+      name = name.replace(regex, abbreviation);
+    }
+    return name;
+  }
+
+
 
   document.addEventListener('DOMContentLoaded', displaySummary);
 
   async function displaySummary() {
     await fetchGroups();
+    await fetchAbbreviations();
 
     // Retrieve the selected courses from the URL parameter
     const urlParams = new URLSearchParams(window.location.search);
@@ -65,7 +97,7 @@
 
               listItem.innerHTML = `
               <span class="column">${course.value}</span>
-                <span class="column">${course.label}</span>
+                <span class="column">${replaceWithAbbreviation(course.label)}</span>
                 <span class="column">${course.patern}</span>
                 <span class="column">${course.quarter}</span>
               `;
